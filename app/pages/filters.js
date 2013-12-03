@@ -26,6 +26,7 @@ angular.module('app').
   }).filter('slice', function() {
     return function(a,start,end) {
       if (!a) { return []; }
+      console.log("the thing we try to slice ", a);
       return a.slice(start,end);
     };
   }).filter('truncate', function() {
