@@ -20,9 +20,9 @@ angular.module('app')
 
     $scope.fundraiser_hide_pledge_button = true;
 
-    $scope.fundraiser = $api.fundraiser_get($routeParams.id).then(function(response) {
+    $api.fundraiser_get($routeParams.id).then(function(fundraiser) {
       // add the base item number, with just fundraiser id
-      $scope.pledge.base_item_number = 'fundraisers/'+response.id;
+      $scope.pledge.base_item_number = 'fundraisers/'+fundraiser.id;
       $scope.pledge.item_number = $scope.pledge.base_item_number;
 
       if ($scope.pledge.reward_id) {
@@ -31,9 +31,9 @@ angular.module('app')
 
       // select reward to have the object cached. handled after this by set_reward(reward)
       $scope.selected_reward = null;
-      for (var i=0; $scope.pledge.reward_id && i<response.rewards.length; i++) {
-        if (response.rewards[i].id === $scope.pledge.reward_id) {
-          $scope.selected_reward = response.rewards[i];
+      for (var i=0; $scope.pledge.reward_id && i<fundraiser.rewards.length; i++) {
+        if (fundraiser.rewards[i].id === $scope.pledge.reward_id) {
+          $scope.selected_reward = fundraiser.rewards[i];
           break;
         }
       }
@@ -42,20 +42,21 @@ angular.module('app')
       $scope.create_payment = function() {
         var base_url = $window.location.href.replace(/\/fundraisers.*$/,'');
         var payment_params = angular.copy($scope.pledge);
-        payment_params.success_url = base_url + "/fundraisers/"+response.id+"/receipts/recent";
+        payment_params.success_url = base_url + "/fundraisers/"+fundraiser.id+"/receipts/recent";
         payment_params.cancel_url = $window.location.href;
 
         $payment.process(payment_params, {
-          error: function(response) { console.log("Payment Error:", response); },
+          error: function(fundraiser) { console.log("Payment Error:", fundraiser); },
 
           noauth: function() {
-            $api.set_post_auth_url("/fundraisers/" + response.slug + "/pledge", payment_params);
+            $api.set_post_auth_url("/fundraisers/" + fundraiser.slug + "/pledge", payment_params);
             $location.url("/signin");
           }
         });
       };
 
-      return response;
+      $scope.fundraiser = fundraiser;
+      return fundraiser;
     });
 
     $scope.set_reward = function(reward) {

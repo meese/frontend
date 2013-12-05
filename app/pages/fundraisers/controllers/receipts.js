@@ -18,7 +18,11 @@ angular.module('app')
   .controller('FundraiserReceiptsController', function ($scope, $twttr, $routeParams, $api, $location, $filter, $window) {
     $scope.receipts = [];
     $scope.type = 'index';
-    $scope.fundraiser = $api.fundraiser_get($routeParams.id);
+    $api.fundraiser_get($routeParams.id).then(function(fundraiser) {
+      $scope.fundraiser = fundraiser;
+      return fundraiser;
+    });
+
     if ((/^\/fundraisers\/[A-Za-z-_0-9]+\/receipts\/recent[\/]?$/i).test($location.path())) {
       $scope.type = 'recent';
     }

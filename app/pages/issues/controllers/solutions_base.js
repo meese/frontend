@@ -10,7 +10,7 @@ angular.module('app')
     $scope.issue.then(function(issue) {
       $scope.bounty_total = parseInt(issue.bounty_total, 10);
 
-      $scope.solutions = $api.solutions_get(issue.id).then(function(solutions) {
+      $api.solutions_get(issue.id).then(function(solutions) {
         // Get the lastest event and set as the Solution status
         for (var i=0; i<solutions.length; i++) {
           solutions[i].status = solutions[i].solution_events[solutions[i].solution_events.length - 1];

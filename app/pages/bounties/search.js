@@ -53,8 +53,9 @@ angular.module('app')
       return { asc: asc_string, desc: desc_string };
     };
 
-    $scope.featured_issues = $api.issues_featured().then(function(issues) {
-      return $filter('shuffle')(issues).slice(0,5);
+    $api.issues_featured().then(function(issues) {
+      $scope.featured_issues = $filter('shuffle')(issues).slice(0,5);
+      return issues;
     });
 
     //grabs all languages. Pushes all languages into languages_selected array

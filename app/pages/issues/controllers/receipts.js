@@ -21,7 +21,10 @@ angular.module('app')
       $scope.type = 'recent';
     }
     $scope.receipts = [];
-    $scope.issue = $api.issue_get($routeParams.id);
+    $api.issue_get($routeParams.id).then(function(issue) {
+      $scope.issue = issue;
+      return issue;
+    });
 
     $scope.issue.then(function (issue) {
       $api.bounty_activity().then(function (response) {

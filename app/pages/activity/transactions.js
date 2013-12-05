@@ -10,6 +10,9 @@ angular.module('app')
       });
   })
   .controller('TransactionActivity', function($scope, $routeParams, $api) {
-    $scope.transactions = $api.transaction_activity();
+    $api.transaction_activity().then(function(transactions) {
+      $scope.transactions = transactions;
+      return transactions;
+    });
   });
 
