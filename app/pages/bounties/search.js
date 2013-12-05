@@ -61,8 +61,7 @@ angular.module('app')
     //grabs all languages. Pushes all languages into languages_selected array
     $scope.languages_selected = [];
 
-    $scope.languages = [];
-    $api.languages_get().then(function(languages) {
+    $scope.languages_promise = $api.languages_get().then(function(languages) {
       languages.sort(function(a,b) {
         return (a.weight > b.weight ? -1 : (a.weight === b.weight ? 0 : 1));
       });
@@ -80,8 +79,8 @@ angular.module('app')
         }
       });
 
-      $scope.languages = angular.copy(languages);
-      return $scope.languages;
+      $scope.languages = languages;
+      return languages;
     });
 
     //removes languages from selected_languages array
