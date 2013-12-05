@@ -4,9 +4,11 @@ angular.module('app')
   .controller('BaseTeamController', function($scope, $location, $routeParams, $api, $pageTitle) {
     $pageTitle.set("Teams");
 
-    $scope.team_promise = $scope.team = $api.team_get($routeParams.id).then(function(team) {
+    $scope.team_promise = $api.team_get($routeParams.id).then(function(team) {
       $pageTitle.set(team.name, "Teams");
       team = $scope.process_owned_unowned_trackers(team);
+
+      $scope.team = team;
       return team;
     });
 
@@ -21,6 +23,7 @@ angular.module('app')
         // push to owned_trackers or unowned_trackers
         (team.trackers[i].$owned ? team.owned_trackers : team.unowned_trackers).push(team.trackers[i]);
       }
+
       return team;
     };
 
@@ -40,7 +43,7 @@ angular.module('app')
       else if (tab === 'issues' && (/^\/teams\/[^\/]+\/issues$/).test($location.path())) { return true; }
     };
 
-    $scope.members = $api.team_members_get($routeParams.id).then(function(members) {
+    $scope.members_promise = $api.team_members_get($routeParams.id).then(function(members) {
       $scope.$watch('current_person', function(person) {
         if (person) {
           for (var i=0; i<members.length; i++) {
@@ -69,6 +72,7 @@ angular.module('app')
         }
       });
 
+      $scope.members = members;
       return members;
     });
   });

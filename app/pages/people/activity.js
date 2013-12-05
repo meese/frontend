@@ -13,15 +13,23 @@ angular.module('app')
       $location.url("/teams/bountysource").replace();
     }
 
-    $scope.person = $api.person_get($routeParams.id);
-
-    $scope.person.then(function(person){
-      person.display_name = person.display_name.replace(/\(unknown\)/g, '').trim();
+    $api.person_get($routeParams.id).then(function(person) {
       $pageTitle.set(person.display_name, 'Profile');
+
+      person.display_name = person.display_name.replace(/\(unknown\)/g, '').trim();
+
+      $scope.person = person;
+      return person;
     });
 
-    $scope.timeline = $api.person_activity($routeParams.id);
+    $api.person_activity($routeParams.id).then(function(timeline) {
+      $scope.timeline = timeline;
+      return timeline;
+    });
 
-    $scope.teams = $api.person_teams_get($routeParams.id);
+    $api.person_teams_get($routeParams.id).then(function(teams) {
+      $scope.teams = teams;
+      return teams;
+    });
   });
 
