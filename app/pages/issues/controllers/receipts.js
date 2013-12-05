@@ -26,7 +26,7 @@ angular.module('app')
       return issue;
     });
 
-    $scope.issue.then(function (issue) {
+    $api.issue_get($routeParams.id).then(function (issue) {
       $api.bounty_activity().then(function (response) {
         for (var e = 0; e < response.length; e++) {  //grab all of the users pledges, if any of them have the same ID as this issue, then push to the receipts array
           if (response[e].issue.id === issue.id) {

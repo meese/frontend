@@ -27,7 +27,7 @@ angular.module('app')
       $scope.type = 'recent';
     }
 
-    $scope.fundraiser.then(function (fundraiser) {
+    $scope.fundraiser_get($routeParams.id).then(function (fundraiser) {
       $api.pledge_activity().then(function (response) {
         //grab all of the users pledges, if any of them have the same ID as this fundraiser, then push to the receipts array
         for (var e = 0; e < response.length; e++) {

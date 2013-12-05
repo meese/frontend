@@ -16,7 +16,7 @@ angular.module('app')
     });
 
     // $sanitize but allow iframes (i.e. youtube videos)
-    $scope.fundraiser.then(function(fundraiser) {
+    $scope.fundraiser_get($routeParams.id).then(function(fundraiser) {
       if (fundraiser.error) {
         // API returns error if you are not authorized to view it (it hasn't been published)
         // Just redirect to the index page
@@ -40,9 +40,10 @@ angular.module('app')
       }
     });
 
-    $scope.pledges = $api.fundraiser_pledges_get($routeParams.id).then(function(pledges) {
+    $api.fundraiser_pledges_get($routeParams.id).then(function(pledges) {
       // need to turn amounts into float so that it's sortable
       for (var i in pledges) { pledges[i].amount = parseFloat(pledges[i].amount); }
+      $scope.pledges = pledges;
       return pledges;
     });
 
@@ -51,7 +52,7 @@ angular.module('app')
     };
 
     $scope.pledge_redirect = function(amount) {
-      $scope.fundraiser.then(function(fundraiser) {
+      $scope.fundraiser_get($routeParams.id).then(function(fundraiser) {
         amount = amount || $scope.pledge.amount;
         if (angular.isNumber(amount) && fundraiser.published) {
           $location.path("/fundraisers/"+$routeParams.id+"/pledge").search({ amount: amount });
