@@ -4,7 +4,7 @@ angular.module('app')
   .controller('BaseTeamController', function($scope, $location, $routeParams, $api, $pageTitle) {
     $pageTitle.set("Teams");
 
-    $api.team_get($routeParams.id).then(function(team) {
+    $scope.team_promise = $api.team_get($routeParams.id).then(function(team) {
       $pageTitle.set(team.name, "Teams");
 
       team.owned_trackers = [];
@@ -37,7 +37,7 @@ angular.module('app')
       else if (tab === 'bounties' && (/^\/teams\/[^\/]+\/bounties$/).test($location.path())) { return true; }
     };
 
-    $scope.members = $api.team_members_get($routeParams.id).then(function(members) {
+    $scope.members_promise = $api.team_members_get($routeParams.id).then(function(members) {
       $scope.$watch('current_person', function(person) {
         if (person) {
           for (var i=0; i<members.length; i++) {
@@ -65,6 +65,7 @@ angular.module('app')
         }
       });
 
+      $scope.members = members;
       return members;
     });
   });

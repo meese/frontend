@@ -32,7 +32,7 @@ angular.module('app')
       $scope.pay_in.total = ($scope.pay_in.amount||0) + $scope.pay_in.fee;
     });
 
-    $scope.team.then(function(team) {
+    $scope.team_get($routeParams.id).then(function(team) {
       $scope.pay_in.item_number = "teams/"+team.id;
     });
 
