@@ -293,8 +293,18 @@ angular.module('api.bountysource',[]).
       return this.call("/trackers/cards", function(r) { return r.data.featured_trackers.concat(r.data.all_trackers); });
     };
 
-    this.tracker_get = function(id) {
+    this.tracker_overview = function(id) {
       return this.call("/trackers/"+id+"/overview");
+    };
+
+    this.tracker_get = function(id) {
+      return this.call("/trackers/"+id);
+    };
+
+    this.update_tracker = function (id, data) {
+      return this.call("/trackers/"+id+"/update", "POST", data, function (response) {
+        return response;
+      });
     };
 
     this.tracker_follow = function(id) {
@@ -309,8 +319,8 @@ angular.module('api.bountysource',[]).
       return this.call("/projects/"+id+"/issues");
     };
 
-    this.issues_featured = function(data) {
-      return this.call("/issues/featured", "GET", data);
+    this.issues_featured = function() {
+      return this.call("/issues/featured");
     };
 
     this.tracker_stats = function(id) {
@@ -385,6 +395,10 @@ angular.module('api.bountysource',[]).
 
     this.bounty_activity = function() {
       return this.call('/user/bounties');
+    };
+
+    this.user_issue_bounty_total = function(issue_id) {
+      return this.call('/user/issues/'+issue_id+'/bounty_total');
     };
 
     this.pledge_activity = function() {
@@ -466,6 +480,10 @@ angular.module('api.bountysource',[]).
 
     this.team_update = function(id, form_data) {
       return this.call("/teams/"+id, "PUT", form_data);
+    };
+
+    this.team_issues = function(team_id) {
+      return this.call("/teams/" + team_id + "/issues");
     };
 
     this.team_tracker_add = function(id, tracker_id) {
