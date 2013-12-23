@@ -464,6 +464,9 @@ angular.module('api.bountysource',[]).
       return this.call("/teams", "GET");
     };
 
+    // just stick with the standard...
+    this.teams_get = this.list_teams;
+
     this.team_get = function(id) {
       return this.call("/teams/"+id);
     };
@@ -666,6 +669,10 @@ angular.module('api.bountysource',[]).
       return this.call("/issues/"+issue_id+"/developer_goals", "GET");
     };
 
+    this.bounty_info = function() {
+      return this.call("/bounties/info");
+    };
+
     // these should probably go in an "AuthenticationController" or something more angular
 
     this.signin = function(form_data) {
@@ -771,7 +778,6 @@ angular.module('api.bountysource',[]).
 
     this.signout = function() {
       $api.set_current_person();
-      $window.location.reload();
     };
 
     // helper functions... definitely doesn't belong here

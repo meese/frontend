@@ -5,30 +5,11 @@ angular.module('app')
     $routeProvider
       .when('/', {
         templateUrl: 'pages/home/home.html',
-        controller: 'HomeCtrl',
-        resolve: {
-          count: function($rootScope, $api) {
-            $rootScope.people_count = $api.people_count();
-          }
-        }
+        controller: 'HomeController'
       });
   })
-  .controller('HomeCtrl', function ($scope, $window, $api) {
-    $api.fundraiser_cards().then(function(fundraisers) {
-      $scope.fundraisers = fundraisers;
-      return fundraisers;
-    });
-
-    $api.people_interesting().then(function(people) {
-      $scope.people = people;
-      return people;
-    });
-
-    $api.project_cards().then(function(trackers) {
-      $scope.trackers = trackers;
-      for (var i=0; i<trackers.length; i++) {
-        trackers[i].bounty_total = parseFloat(trackers[i].bounty_total);
-      }
-      return trackers;
+  .controller('HomeController', function ($scope, $api) {
+    $api.bounty_info().then(function(bounty_info) {
+      $scope.bounty_info = bounty_info;
     });
   });
