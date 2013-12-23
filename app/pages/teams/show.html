@@ -93,13 +93,12 @@
             <li>Show off your team</li>
           </ul>
         </div>
-        <div style="text-align:center"><a ng-href="/teams/{{ team.slug }}/members/manage" class="btn btn-primary">Invite
+        <div style="text-align:center;"><a ng-href="/teams/{{ team.slug }}/members/manage" class="btn btn-primary">Invite
           Members</a></div>
       </div>
 
-      <div class="col-md-3 well" style="height:280px;"
-           ng-show="team.type == 'Team::Startup' || team.type == 'Team::Enterprise'">
-        <div style="height:75%">
+      <div class="span3 well" style="min-height:280px;" ng-show="team.type == 'Team::Startup' || team.type == 'Team::Enterprise'">
+        <div style="min-height:75%">
           <h4>Add Funds</h4>
           <ul>
             <li>Create a shared team balance</li>

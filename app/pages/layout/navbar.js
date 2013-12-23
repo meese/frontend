@@ -31,5 +31,10 @@ angular.module('app')
     $scope.save_route = function() {
       $api.set_post_auth_url($location.url());
     };
+
+    $scope.send_to_email_login = function() {
+      $scope.save_route();
+      $location.url("/signin");
+    };
   });
 

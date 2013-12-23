@@ -12,7 +12,6 @@ angular.module('api.bountysource',[]).
       $rootScope.environment = $cookieStore.get('environment') || $rootScope.environment;
     }
 
-
     // set API host based on environment
     if ($rootScope.environment === 'dev') {
       $rootScope.api_host = "http://localhost:5000/";
@@ -46,6 +45,7 @@ angular.module('api.bountysource',[]).
         throw("Nothing left :/");
       }
     };
+
     // call(url, 'POST', { foo: bar }, optional_callback)
     this.call = function() {
       //if we are in the test environment, call the mocked $api.call() otherwise, use the prod call()
@@ -111,8 +111,8 @@ angular.module('api.bountysource',[]).
                 $log.info(" * Request", method, url);
                 $log.info(" * Request Params", logged_params);
                 $log.info(" * Response:", angular.copy(parsed_response));
-              } else if (parsed_response.meta.status === 301) {
-                $log.info("Content moved, redirecting to ", parsed_response.data.url);
+              } else if (parsed_response.meta.status === 302) {
+                $log.info("Redirecting to ", parsed_response.data.url);
                 $window.location = parsed_response.data.url;
               }
             }
@@ -293,8 +293,22 @@ angular.module('api.bountysource',[]).
       return this.call("/trackers/cards", function(r) { return r.data.featured_trackers.concat(r.data.all_trackers); });
     };
 
-    this.tracker_get = function(id) {
+    this.tracker_overview = function(id) {
       return this.call("/trackers/"+id+"/overview");
+    };
+
+    this.tracker_get = function(id) {
+      return this.call("/trackers/"+id);
+    };
+
+    this.update_tracker = function (id, data) {
+      return this.call("/trackers/"+id+"/update", "POST", data, function (response) {
+        return response;
+      });
+    };
+
+    this.trackers_get_bulk = function(ids) {
+      return this.call("/bulk/trackers", "GET", {ids: ids});
     };
 
     this.tracker_follow = function(id) {
@@ -420,6 +434,10 @@ angular.module('api.bountysource',[]).
       return this.call("/search/bounty_search", "GET", query);
     };
 
+    this.saved_search_tabs = function() {
+      return this.call("/tabs");
+    };
+
     this.languages_get = function() {
       return this.call("/languages");
     };
@@ -473,6 +491,10 @@ angular.module('api.bountysource',[]).
 
     this.team_update = function(id, form_data) {
       return this.call("/teams/"+id, "PUT", form_data);
+    };
+
+    this.team_issues = function(team_id) {
+      return this.call("/teams/" + team_id + "/issues");
     };
 
     this.team_tracker_add = function(id, tracker_id) {
@@ -661,6 +683,10 @@ angular.module('api.bountysource',[]).
       return this.call("/issues/"+issue_id+"/developer_goal", "PUT", data);
     };
 
+    this.delete_developer_goal = function(issue_id) {
+      return this.call("/issues/"+issue_id+"/developer_goal", "DELETE");
+    };
+
     this.get_developer_goal = function(issue_id) {
       return this.call("/issues/"+issue_id+"/developer_goal", "GET");
     };
@@ -760,7 +786,7 @@ angular.module('api.bountysource',[]).
     this.load_current_person_from_cookies = function() {
       var access_token = $api.get_access_token();
       if (access_token) {
-        console.log("Verifying access token: " + access_token);
+        //console.log("Verifying access token: " + access_token);
         this.call("/user", { access_token: access_token }, function(response) {
           if (response.meta.status === 200) {
             console.log("access token still valid");

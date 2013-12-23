@@ -15,6 +15,9 @@ angular.module('app')
       $scope.my_developer_goal = new_developer_goal;
       $scope.get_developer_goals(new_developer_goal.issue.id).then(function(developer_goals) {
         developer_goals.push(new_developer_goal);
+        $scope.next_developer_goal = $filter('orderBy')(developer_goals, ["-amount"])[0];
+        
+        $scope.developer_goals = developer_goals;
         return developer_goals;
       });
     });
@@ -28,6 +31,20 @@ angular.module('app')
       $scope.initialize_developer_goals();
 
       $scope.my_developer_goal_updated_at = new Date();
+    });
+
+    $scope.$on('developerGoalDeleteReceived', function(event, deleted_developer_goal) {
+      $scope.developer_goals.then(function(developer_goals) {
+        for (var i in developer_goals) {
+          if (deleted_developer_goal.id === developer_goals[i].id) {
+            developer_goals.splice(i,1);
+          }
+        }
+        $scope.next_developer_goal = $filter('orderBy')(developer_goals, ["-amount"])[0];
+        
+        $scope.developer_goals = developer_goals;
+        return developer_goals;
+      });
     });
 
     $api.issue_get($routeParams.id).then(function(issue) {
@@ -54,6 +71,7 @@ angular.module('app')
               }
             }
 
+            $scope.developer_goals = developer_goals;
             return developer_goals;
           });
         } else {
@@ -70,6 +88,15 @@ angular.module('app')
       $scope.update_developer_goal = function() {
         $api.update_developer_goal(issue.id, $scope.my_developer_goal).then(function(updated_developer_goal) {
           $scope.$emit('developerGoalUpdatePushed', updated_developer_goal);
+        });
+      };
+
+      $scope.delete_developer_goal = function() {
+        $api.delete_developer_goal(issue.id).then(function() {
+          $scope.$emit('developerGoalDeletePushed', $scope.my_developer_goal);
+          $scope.updated_developer_goal = undefined;
+          $scope.my_developer_goal = undefined;
+          $scope.new_developer_goal = undefined;
         });
       };
 

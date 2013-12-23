@@ -114,7 +114,7 @@
               <form style="margin-bottom: 0">
                 <textarea ng-model="claim.new_dispute.description" style="width: 100%;" rows="3" placeholder="Another developer deserves this bounty." ></textarea>
                 <button class="btn btn-danger" ng-click="claim.submit_reject()"><i class="glyphicon glyphicon-thumbs-down glyphicon-white"></i> Reject claim</button>
-                <button class="btn" ng-click="claim.show_dispute_form = false">Cancel</button>
+                <button class="btn btn-default" ng-click="claim.show_dispute_form = false">Cancel</button>
               </form>
             </div>
           </div>
@@ -126,7 +126,7 @@
               <form style="margin-bottom: 0">
                 <textarea ng-model="claim.new_resolve.description" style="width: 100%;" rows="3" placeholder="{{claim.person.display_name}} addressed my concerns, thanks!" ></textarea>
                 <button class="btn btn-success" ng-click="claim.resolve()"><i class="glyphicon glyphicon-thumbs-up glyphicon-white"></i> Resolve Dispute</button>
-                <button class="btn" ng-click="claim.show_resolve_form = false">Cancel</button>
+                <button class="btn btn-default" ng-click="claim.show_resolve_form = false">Cancel</button>
               </form>
             </div>
           </div>
@@ -138,7 +138,7 @@
               <form style="margin-bottom: 0">
                 <textarea ng-model="claim.new_accept.description" style="width: 100%;" rows="3" placeholder="You did a great job {{claim.person.display_name}}, thanks for the fix!" ></textarea>
                 <button class="btn btn-success" ng-click="claim.accept()"><i class="glyphicon glyphicon-thumbs-up glyphicon-white"></i> Accept</button>
-                <button class="btn" ng-click="claim.show_accept_form = false">Cancel</button>
+                <button class="btn btn-default" ng-click="claim.show_accept_form = false">Cancel</button>
               </form>
             </div>
           </div>

@@ -5,6 +5,7 @@ if (document.location.host === 'www.bountysource.com') {
 } else {
   window.BS_ENV = 'staging';
 }
+angular.module('app.services', []);
 
 angular.module('app', ['ui.bootstrap', 'api.bountysource', 'ngRoute', 'ngSanitize', 'ngCookies', 'colorpicker.module'])
   .config(function ($routeProvider, $locationProvider, $httpProvider, $provide) {
