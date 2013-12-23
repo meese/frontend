@@ -11,18 +11,18 @@ angular.module('app')
 
     $scope.initializing_my_developer_goal = false;
 
-    $scope.$on('developerGoalCreateReceived', function(event, new_developer_goal) {
+    $scope.$on('developerGoalCreateReceived', function (event, new_developer_goal) {
       $scope.my_developer_goal = new_developer_goal;
-      $scope.get_developer_goals(new_developer_goal.issue.id).then(function(developer_goals) {
+      $scope.get_developer_goals(new_developer_goal.issue.id).then(function (developer_goals) {
         developer_goals.push(new_developer_goal);
         $scope.next_developer_goal = $filter('orderBy')(developer_goals, ["-amount"])[0];
-        
+
         $scope.developer_goals = developer_goals;
         return developer_goals;
       });
     });
 
-    $scope.$on('developerGoalUpdateReceived', function(event, updated_developer_goal) {
+    $scope.$on('developerGoalUpdateReceived', function (event, updated_developer_goal) {
       for (var k in updated_developer_goal) {
         $scope.my_developer_goal[k] = updated_developer_goal[k];
       }
@@ -33,38 +33,38 @@ angular.module('app')
       $scope.my_developer_goal_updated_at = new Date();
     });
 
-    $scope.$on('developerGoalDeleteReceived', function(event, deleted_developer_goal) {
-      $scope.developer_goals.then(function(developer_goals) {
+    $scope.$on('developerGoalDeleteReceived', function (event, deleted_developer_goal) {
+      $scope.developer_goals.then(function (developer_goals) {
         for (var i in developer_goals) {
           if (deleted_developer_goal.id === developer_goals[i].id) {
-            developer_goals.splice(i,1);
+            developer_goals.splice(i, 1);
           }
         }
         $scope.next_developer_goal = $filter('orderBy')(developer_goals, ["-amount"])[0];
-        
+
         $scope.developer_goals = developer_goals;
         return developer_goals;
       });
     });
 
-    $api.issue_get($routeParams.id).then(function(issue) {
+    $api.issue_get($routeParams.id).then(function (issue) {
       issue.bounty_total = parseInt(issue.bounty_total, 10);
 
       // set $scope.developer_events
       $scope.initialize_developer_goals();
 
       // Redirect to bounty create page with the min amount to fulfill the next goal
-      $scope.create_minimum_bounty = function() {
-        $location.path("/issues/"+issue.id+"/bounty").search({ amount: Math.max($scope.$bounty_amount, 5) });
+      $scope.create_minimum_bounty = function () {
+        $location.path("/issues/" + issue.id + "/bounty").search({ amount: Math.max($scope.$bounty_amount, 5) });
       };
 
       // If the person is logged in, attempt to find their developer goal
-      $scope.$watch('current_person', function(current_person) {
+      $scope.$watch('current_person', function (current_person) {
         if (current_person) {
-          $api.get_developer_goals(issue.id).then(function(developer_goals) {
+          $api.get_developer_goals(issue.id).then(function (developer_goals) {
             $scope.initializing_my_developer_goal = false;
 
-            for (var i=0; i<developer_goals.length; i++) {
+            for (var i = 0; i < developer_goals.length; i++) {
               if (developer_goals[i].person.id === current_person.id) {
                 $scope.my_developer_goal = developer_goals[i];
                 break;
@@ -79,20 +79,20 @@ angular.module('app')
         }
       });
 
-      $scope.create_developer_goal = function() {
-        $api.create_developer_goal(issue.id, $scope.new_developer_goal).then(function(new_developer_goal) {
+      $scope.create_developer_goal = function () {
+        $api.create_developer_goal(issue.id, $scope.new_developer_goal).then(function (new_developer_goal) {
           $scope.$emit('developerGoalCreatePushed', new_developer_goal);
         });
       };
 
-      $scope.update_developer_goal = function() {
-        $api.update_developer_goal(issue.id, $scope.my_developer_goal).then(function(updated_developer_goal) {
+      $scope.update_developer_goal = function () {
+        $api.update_developer_goal(issue.id, $scope.my_developer_goal).then(function (updated_developer_goal) {
           $scope.$emit('developerGoalUpdatePushed', updated_developer_goal);
         });
       };
 
-      $scope.delete_developer_goal = function() {
-        $api.delete_developer_goal(issue.id).then(function() {
+      $scope.delete_developer_goal = function () {
+        $api.delete_developer_goal(issue.id).then(function () {
           $scope.$emit('developerGoalDeletePushed', $scope.my_developer_goal);
           $scope.updated_developer_goal = undefined;
           $scope.my_developer_goal = undefined;
@@ -103,12 +103,12 @@ angular.module('app')
       return issue;
     });
 
-    $scope.initialize_developer_goals = function() {
-      $api.issue_get($routeParams.id).then(function(issue) {
-        $api.get_developer_goals(issue.id).then(function(developer_goals) {
+    $scope.initialize_developer_goals = function () {
+      $api.issue_get($routeParams.id).then(function (issue) {
+        $api.get_developer_goals(issue.id).then(function (developer_goals) {
           // Collect developer goals that have not yet been met
           $scope.unmet_developer_goals = [];
-          for (var i=0; i<developer_goals.length; i++) {
+          for (var i = 0; i < developer_goals.length; i++) {
             if (issue.bounty_total < developer_goals[i].amount) {
               $scope.unmet_developer_goals.push(developer_goals[i]);
             }
