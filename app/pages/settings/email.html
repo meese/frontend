@@ -13,29 +13,29 @@
 </div>
 
 <form class="form-horizontal" name="form" ng-submit="submit()" novalidate>
-  <div class="control-group">
+  <div class="form-group">
     <label class="control-label" for="inputEmail">Primary Email:</label>
-    <div class="controls">
+    <div>
       <input type="email" id="inputEmail" name="email" placeholder="john@doe.com" ng-model="form_data.email" class="input-xlarge" required />
     </div>
   </div>
 
-  <div class="control-group">
+  <div class="form-group">
     <label class="control-label">Email Options:</label>
-    <div class="controls">
+    <div>
       <label class="checkbox">
         <input type="checkbox" name="weekly_newsletter" ng-model="form_data.weekly_newsletter" /> Weekly Newsletter
       </label>
     </div>
-    <div class="controls">
+    <div>
       <label class="checkbox">
         <input type="checkbox" name="receive_developer_alerts" ng-model="form_data.receive_developer_alerts" /> Bounty Alerts
       </label>
     </div>
   </div>
 
-  <div class="control-group">
-    <div class="controls">
+  <div class="form-group">
+    <div>
       <button type="submit" class="btn btn-success" ng-disabled="form.$invalid">Save</button>
     </div>
   </div>

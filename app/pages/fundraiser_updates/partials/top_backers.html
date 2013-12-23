@@ -10,7 +10,7 @@
 
       <td>
         <a ng-show="pledge.owner" ng-href="/people/{{ pledge.owner.slug }}">{{ pledge.owner.display_name }}</a>
-        <div ng-hide="pledge.owner" class="muted">Anonymous</div>
+        <div ng-hide="pledge.owner" class="text-muted">Anonymous</div>
         <div><b>{{ pledge.amount | dollars }}</b></div>
       </td>
     </tr>

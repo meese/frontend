@@ -6,8 +6,8 @@
 <ng-include src="'pages/tools/partials/header.html'"></ng-include>
 <ng-include src="'pages/tools/partials/tabs.html'"></ng-include>
 
-<div class="row-fluid" ng-controller="InstalledPluginsController">
-  <div class="span5">
+<div class="row" ng-controller="InstalledPluginsController">
+  <div class="col-md-5">
     <loading-bar ng-show="loading_trackers">Loading your projects...</loading-bar>
 
     <div ng-hide="loading_trackers">
@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="span7">
+  <div class="col-md-7">
     <div ng-show="plugin_alert.text">
       <alert type="plugin_alert.type" close = "plugin_alert.text = null">{{plugin_alert.text}}</alert>
     </div>

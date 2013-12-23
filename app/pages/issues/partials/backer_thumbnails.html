@@ -1,6 +1,6 @@
-<div class="row-fluid">
+<div class="row">
   <!--<h4 style="margin: 0 0 5px 0;">{{issue.bounties.length | number}} {{ 'Backer' | pluralize:issue.bounties.length }}</h4>-->
-  <ul class="inline" style="margin-bottom: 0;">
+  <ul class="list-inline" style="margin-bottom: 0;">
     <li ng-repeat="bounty in issue.bounties.slice(0, 5) | orderBy:['-amount']">
 
       <div ng-show="bounty.owner" tooltip="{{bounty.amount | dollars}} - {{bounty.owner.display_name}}">

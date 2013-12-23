@@ -6,11 +6,11 @@
 </ul>
 
 <div ng-show="team" ng-controller="TeamBountiesController">
-  <div class="row-fluid">
-    <div class="span3">
+  <div class="row">
+    <div class="col-md-3">
       <ng-include src="'pages/teams/partials/infobox.html'"></ng-include>
     </div>
-    <div class="span9">
+    <div class="col-md-9">
       <ng-include src="'pages/teams/partials/header.html'"></ng-include>
       <ng-include src="'pages/teams/partials/tabs.html'"></ng-include>
 
@@ -18,7 +18,7 @@
       <div collapse="bounties_resolved" class="text-center">
         <p class="lead">Loading bounties...</p>
         <div class="progress progress-striped active">
-          <div class="bar" style="width: 100%;"></div>
+          <div class="progress-bar" style="width: 100%;"></div>
         </div>
       </div>
 
@@ -42,7 +42,7 @@
                 <td><a ng-href="/trackers/{{bounty.issue.tracker.slug}}">{{bounty.issue.tracker.name}}</a></td>
                 <td>
                   <a ng-href="/issues/{{bounty.issue.slug}}">
-                    <i ng-show="bounty.issue.bounty_total >= 1000" class="icon-fire"></i>
+                    <i ng-show="bounty.issue.bounty_total >= 1000" class="glyphicon glyphicon-fire"></i>
                     {{bounty.issue.title}}
                     <span ng-show="!bounty.issue.can_add_bounty && !bounty.issue.paid_out" class="label label-warning">closed</span>
                   </a>
@@ -74,7 +74,7 @@
                 <td><a ng-href="/trackers/{{bounty.issue.tracker.slug}}">{{bounty.issue.tracker.name}}</a></td>
                 <td>
                   <a ng-href="/issues/{{bounty.issue.slug}}">
-                    <i ng-show="bounty.issue.bounty_total >= 1000" class="icon-fire"></i>
+                    <i ng-show="bounty.issue.bounty_total >= 1000" class="glyphicon glyphicon-fire"></i>
                     {{bounty.issue.title}}
                   </a>
                 </td>

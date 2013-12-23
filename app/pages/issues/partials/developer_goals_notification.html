@@ -41,7 +41,7 @@
           </td>
           <td style="width: 40%">
             <div class="issue-goals progress progress-striped" style="margin: 0;">
-              <div class="bar bar-success" style="width: {{ 100*issue.bounty_total/developer_goal.amount | at_least:15 | at_most:100 | percent }};">
+              <div class="progress-bar progress-bar-success" style="width: {{ 100*issue.bounty_total/developer_goal.amount | at_least:15 | at_most:100 | percent }};">
                 <span>{{issue.bounty_total/developer_goal.amount | percent}}</span>
               </div>
             </div>
@@ -52,37 +52,37 @@
     </div>
 
     <div class="alert alert-success" style="padding: 15px; margin-bottom: 0;">
-      <div class="row-fluid">
-        <div class="span4">
+      <div class="row">
+        <div class="col-md-4">
           <!--<span><strong style="font-size: 20px;">{{issue.bounty_total | dollars}}</strong> of <strong style="font-size: 20px;">{{next_developer_goal.amount | dollars}}</strong></span>-->
 
-          <div class="row-fluid">
-            <div class="span5" style="text-align: center;">
+          <div class="row">
+            <div class="col-md-5" style="text-align: center;">
               <h3 style="margin: 0; line-height: 25px;">{{issue.bounty_total | dollars}}</h3>
               <strong>Raised</strong>
             </div>
 
-            <div class="span2" style="text-align: center; line-height: 40px;">
+            <div class="col-md-2" style="text-align: center; line-height: 40px;">
               <div><strong>of</strong></div>
             </div>
 
-            <div class="span5" style="text-align: center;">
+            <div class="col-md-5" style="text-align: center;">
               <h3 style="margin: 0; line-height: 25px;">{{next_developer_goal.amount | dollars}}</h3>
               <strong>Goal</strong>
             </div>
           </div>
         </div>
 
-        <div class="span5">
+        <div class="col-md-5">
           <div class="issue-goals progress progress-striped" style="margin-top: 10px;">
-            <div class="bar bar-success" style="width: {{100*issue.bounty_total/next_developer_goal.amount | at_least:5 | at_most:100 | number:0 }}%;">
+            <div class="progress-bar progress-bar-success" style="width: {{100*issue.bounty_total/next_developer_goal.amount | at_least:5 | at_most:100 | number:0 }}%;">
               <span>{{issue.bounty_total/next_developer_goal.amount | percent}}</span>
             </div>
           </div>
         </div>
 
-        <div class="span3">
-          <button style="margin-top: 0;" class="btn btn-large btn-block btn-success" ng-click="create_minimum_bounty()">Post Bounty</button>
+        <div class="col-md-3">
+          <button style="margin-top: 0;" class="btn btn-lg btn-block btn-success" ng-click="create_minimum_bounty()">Post Bounty</button>
         </div>
       </div>
     </div>

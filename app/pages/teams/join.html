@@ -5,18 +5,18 @@
 </ul>
 
 <div ng-show="team" ng-controller="JoinTeamController">
-  <div class="row-fluid">
-    <div class="span3">
+  <div class="row">
+    <div class="col-md-3">
       <ng-include src="'pages/teams/partials/infobox.html'"></ng-include>
     </div>
-    <div class="span9">
+    <div class="col-md-9">
       <div class="well well-large" style="text-align: center;">
         <h1 style="margin-top: 0;">Join <a ng-href="teams/{{team.slug}}">{{team.name}}</a>?</h1>
         <p class="lead">By accepting this invitation, you can use Bountysource on behalf of {{team.name}}.</p>
 
         <form name="form" class="form-inline" ng-submit="accept()" style="margin-bottom: 0;">
-          <!--<input type="text" class="span6" ng-model="token" placeholder="Invite token" required />-->
-          <button type="submit" class="btn btn-large btn-primary" ng-disabled="form.$invalid">Accept Invitation</button>
+          <!--<input type="text" class="col-md-6" ng-model="token" placeholder="Invite token" required />-->
+          <button type="submit" class="btn btn-lg btn-primary" ng-disabled="form.$invalid">Accept Invitation</button>
         </form>
       </div>
     </div>

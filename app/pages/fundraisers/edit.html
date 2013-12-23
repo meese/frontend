@@ -5,49 +5,49 @@
   <li><a>Edit</a></li>
 </ul>
 
-<div class="row-fluid" ng-show="fundraiser">
-  <div class="span9">
+<div class="row" ng-show="fundraiser">
+  <div class="col-md-9">
     <div ng-show="error" >
       <alert type="'error'" close="error = null" >{{ error }}</alert>
     </div>
 
     <!--Edit Title and Short Description-->
-    <input id="fundraiser-title" class="span12" type="text" autofocus="true" name="title" ng-model="changes.title" placeholder="The title of your fundraiser" />
-    <textarea class="span12 lead" rows="2" name="description" ng-model="changes.short_description" placeholder="Briefly describe your fundraiser"></textarea>
+    <input id="fundraiser-title" class="col-md-12" type="text" autofocus="true" name="title" ng-model="changes.title" placeholder="The title of your fundraiser" />
+    <textarea class="col-md-12 lead" rows="2" name="description" ng-model="changes.short_description" placeholder="Briefly describe your fundraiser"></textarea>
 
     <ng-form class="form-horizontal" name="urls">
-      <div class="control-group">
+      <div class="form-group">
         <label class="control-label" for="funding-goal">Funding Goal</label>
-        <div class="controls">
-          <input class="span8" id="funding-goal" type="number" min="5" ng-disabled="fundraiser.published" ng-model="changes.funding_goal" placeholder="Funding goal" />
+        <div>
+          <input class="col-md-8" id="funding-goal" type="number" min="5" ng-disabled="fundraiser.published" ng-model="changes.funding_goal" placeholder="Funding goal" />
         </div>
       </div>
 
-      <div class="control-group">
+      <div class="form-group">
         <label class="control-label" for="repo-url">Image URL</label>
-        <div class="controls">
+        <div>
           <img src="{{master.image_url}}" style="width:50px; height:50px"/>
-          <input class="span7" id="repo-url" type="text" ng-model="changes.image_url" placeholder="https://cdn.awesome.com/abc123" />
+          <input class="col-md-7" id="repo-url" type="text" ng-model="changes.image_url" placeholder="https://cdn.awesome.com/abc123" />
         </div>
       </div>
 
-      <div class="control-group">
+      <div class="form-group">
         <label class="control-label" for="homepage-url">Homepage</label>
-        <div class="controls">
-          <input class="span8" id="homepage-url" type="url" ng-model="changes.homepage_url" placeholder="https://www.bountysource.com" />
+        <div>
+          <input class="col-md-8" id="homepage-url" type="url" ng-model="changes.homepage_url" placeholder="https://www.bountysource.com" />
         </div>
       </div>
 
-      <div class="control-group">
+      <div class="form-group">
         <label class="control-label" for="repo-url">Repository</label>
-        <div class="controls">
-          <input class="span8" id="repo-url" type="url" ng-model="changes.repo_url" placeholder="https://github.com/bountysource/frontend" />
+        <div>
+          <input class="col-md-8" id="repo-url" type="url" ng-model="changes.repo_url" placeholder="https://github.com/bountysource/frontend" />
         </div>
       </div>
 
-      <div class="control-group" ng-show="teams.length > 0">
+      <div class="form-group" ng-show="teams.length > 0">
         <label class="control-label" for="repo-url">Team</label>
-        <div class="controls">
+        <div>
           <select ng-options="team.id as team.name for team in teams" ng-model="changes.team_id">
             <option value="">No Team</option>
           </select>
@@ -59,17 +59,17 @@
     <div class="alert alert-info">
       <strong>Protip:</strong> You can format your description using <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavored Markdown</a>.
     </div>
-    <textarea id="fundraiser-description" class="span12" rows="15" ng-model="changes.description" placeholder="A description of your goal for this fundraiser. You can use GitHub flavored markdown here."></textarea>
+    <textarea id="fundraiser-description" class="col-md-12" rows="15" ng-model="changes.description" placeholder="A description of your goal for this fundraiser. You can use GitHub flavored markdown here."></textarea>
   </div>
 
-  <div class="span3">
+  <div class="col-md-3">
     <div ng-show="unsaved_changes()">
       <alert class="alert alert-warning"><strong>Hey! You have unsaved changes!</strong> Don't forget to <a ng-click="save()">save your changes</a> when you are done.</alert>
     </div>
 
     <div class="well well-large">
-      <button ng-click="save()" class="btn btn-primary btn-large btn-block">Save</button>
-      <button ng-click="cancel()" class="btn btn-large btn-block">Cancel</button>
+      <button ng-click="save()" class="btn btn-primary btn-lg btn-block">Save</button>
+      <button ng-click="cancel()" class="btn btn-default btn-lg btn-block">Cancel</button>
     </div>
 
     <div ng-controller="RewardsController">
@@ -80,8 +80,8 @@
           <accordion-group heading="${{reward.amount | number:0}} Reward" is-open="reward.$is_open">
             <div style="text-align: center;">
               <!--Reward amount-->
-              <div class="input-prepend" style="margin-bottom:0">
-                <span class="add-on">$</span>
+              <div class="input-group" style="margin-bottom:0">
+                <span class="input-group-addon">$</span>
                 <input type="number" ng-model="reward.amount" min="5" required placeholder="Minimum Pledge Amount" ng-disabled="fundraiser.published" />
               </div>
 
@@ -95,28 +95,28 @@
             <br>
 
             <!--Reward description-->
-            <textarea class="span12" rows="5" ng-model="reward.description" required placeholder="A description of this reward." ng-disabled="fundraiser.published"></textarea>
+            <textarea class="col-md-12" rows="5" ng-model="reward.description" required placeholder="A description of this reward." ng-disabled="fundraiser.published"></textarea>
 
             <!--Fulfillment Details-->
-            <textarea class="span12" rows="5" ng-model="reward.fulfillment_details" placeholder="Request additional information from backers to fulfill this reward. For example, you may need to ask for a shirt size, mailing address, etc."></textarea>
+            <textarea class="col-md-12" rows="5" ng-model="reward.fulfillment_details" placeholder="Request additional information from backers to fulfill this reward. For example, you may need to ask for a shirt size, mailing address, etc."></textarea>
 
-            <div class="row-fluid">
-              <div class="span6">
+            <div class="row">
+              <div class="col-md-6">
                 <!--Add that bad boy!-->
                 <button ng-click="update_reward(fundraiser, reward)" class="btn btn-primary btn-block">
                   Save
                 </button>
               </div>
-              <div class="span3">
+              <div class="col-md-3">
                 <!--Add that bad boy!-->
-                <button ng-click="cancel_reward_changes(reward)" class="btn btn-block" tooltip="Cancel" tooltip-placement="top" tooltip-trigger="mouseenter">
-                  <i class="icon-remove"></i>
+                <button ng-click="cancel_reward_changes(reward)" class="btn btn-default btn-block" tooltip="Cancel" tooltip-placement="top" tooltip-trigger="mouseenter">
+                  <i class="glyphicon glyphicon-remove"></i>
                 </button>
               </div>
-              <div class="span3">
+              <div class="col-md-3">
                 <!--Destroy button-->
-                <button ng-disabled="fundraiser.published" ng-click="destroy_reward(fundraiser, reward)" class="btn btn-block" tooltip="Delete" tooltip-placement="top" tooltip-trigger="mouseenter">
-                  <i class="icon-trash"></i>
+                <button ng-disabled="fundraiser.published" ng-click="destroy_reward(fundraiser, reward)" class="btn btn-default btn-block" tooltip="Delete" tooltip-placement="top" tooltip-trigger="mouseenter">
+                  <i class="glyphicon glyphicon-trash"></i>
                 </button>
               </div>
             </div>
@@ -130,8 +130,8 @@
 
           <div style="text-align: center;">
             <!--Reward amount-->
-            <div class="input-prepend" style="margin-bottom:0">
-              <span class="add-on">$</span>
+            <div class="input-group" style="margin-bottom:0">
+              <span class="input-group-addon">$</span>
               <input type="number" name="amount" ng-model="new_reward.amount" min="5" required placeholder="Minimum Pledge Amount" />
             </div>
 
@@ -145,10 +145,10 @@
           <br>
 
           <!--Reward description-->
-          <textarea class="span12" rows="5" ng-model="new_reward.description" required placeholder="A description of this reward."></textarea>
+          <textarea class="col-md-12" rows="5" ng-model="new_reward.description" required placeholder="A description of this reward."></textarea>
 
           <!--Fulfillment Details-->
-          <textarea class="span12" rows="5" ng-model="new_reward.fulfillment_details" placeholder="Request additional information from backers to fulfill this reward. For example, you may need to ask for a shirt size, mailing address, etc."></textarea>
+          <textarea class="col-md-12" rows="5" ng-model="new_reward.fulfillment_details" placeholder="Request additional information from backers to fulfill this reward. For example, you may need to ask for a shirt size, mailing address, etc."></textarea>
 
           <!--Add that bad boy!-->
           <button ng-disabled="!new_reward.amount || !new_reward.description" ng-click="create_reward(fundraiser)" class="btn btn-success btn-block">Add Reward</button>

@@ -25,8 +25,8 @@
     <th>Amount</th>
     <th>Date</th>
     <th style="width: 50px;">Owner</th>
-    <th class="span2">Anonymous <a popover-title="Anonymous Pledges" popover="If you want to hide your identity on a pledge, make it anonymous. You can change this at anytime." popover-trigger="click"><i class="icon-question-sign"></i></a></th>
-    <th class="span1"></th>
+    <th class="col-md-2">Anonymous <a popover-title="Anonymous Pledges" popover="If you want to hide your identity on a pledge, make it anonymous. You can change this at anytime." popover-trigger="click"><i class="glyphicon glyphicon-question-sign"></i></a></th>
+    <th class="col-md-1"></th>
   </tr>
   </thead>
 
@@ -41,12 +41,12 @@
       <div collapse="!pledge.$show_survey">
         <br />
         <form class="form-horizontal" name="form">
-          <div class="control-group">
+          <div class="form-group">
             <label class="control-label">Reward:</label>
-            <div class="controls">
+            <div>
               <label class="radio" ng-repeat="reward in pledge.fundraiser.rewards" ng-show="pledge.amount >= reward.amount">
                 <input type="radio" ng-model="pledge.reward_id" value="{{reward.id}}" ng-click="select_reward(pledge, reward)" ng-disabled="pledge.amount < reward.amount" />
-                <div ng-class="{ 'muted': (pledge.amount < reward.amount && reward.amount > 0) }">
+                <div ng-class="{ 'text-muted': (pledge.amount < reward.amount && reward.amount > 0) }">
                   <span ng-show="reward.amount == 0">No Reward</span>
                   <span ng-show="reward.amount > 0">{{reward.amount | dollars}} Reward tier</span>
                 </div>
@@ -58,23 +58,23 @@
           </div>
 
           <div ng-show="pledge.reward.fulfillment_details">
-            <div class="control-group text-warning">
+            <div class="form-group text-warning">
               <label class="control-label">Required Information:</label>
-              <div class="controls">
+              <div>
                 <p style="white-space: pre-wrap; padding-top: 5px;">{{pledge.reward.fulfillment_details}}</p>
               </div>
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
               <label class="control-label">Your Response:</label>
-              <div class="controls">
+              <div>
                 <textarea style="width: 360px;" rows="4" ng-model="pledge.survey_response" placeholder="Your response"></textarea>
               </div>
             </div>
           </div>
 
-          <div class="control-group">
-            <div class="controls">
+          <div class="form-group">
+            <div>
               <button type="submit" class="btn btn-primary" ng-click="update_pledge(pledge)" ng-disabled="form.$pristine">Save Changes</button>
               <button class="btn" ng-click="pledge.$show_survey = false">Close</button>
             </div>
@@ -103,25 +103,25 @@
     </td>
 
     <td ng-show="pledge.anonymous">
-      <button class="btn btn-small btn-block active" ng-click="toggle_anonymous(pledge)">
-        <i class="icon-eye-close"></i>
+      <button class="btn btn-default btn-sm btn-block active" ng-click="toggle_anonymous(pledge)">
+        <i class="glyphicon glyphicon-eye-close"></i>
         Anonymized
       </button>
     </td>
 
     <td ng-hide="pledge.anonymous">
-      <button class="btn btn-small btn-block btn-success" ng-click="toggle_anonymous(pledge)" ng-hide="pledge.owner_type == 'Team'">
-        <i class="icon-eye-open icon-white"></i>
+      <button class="btn btn-sm btn-block btn-success" ng-click="toggle_anonymous(pledge)" ng-hide="pledge.owner_type == 'Team'">
+        <i class="glyphicon glyphicon-eye-open glyphicon-white"></i>
         Publicized
       </button>
-      <button class="btn btn-small btn-block btn-success disabled" ng-show="pledge.owner_type == 'Team'" tooltip="Team pledges cannot be anonymous">
-        <i class="icon-eye-open icon-white"></i>
+      <button class="btn btn-sm btn-block btn-success disabled" ng-show="pledge.owner_type == 'Team'" tooltip="Team pledges cannot be anonymous">
+        <i class="glyphicon glyphicon-eye-open glyphicon-white"></i>
         Publicized
       </button>
     </td>
 
     <td>
-      <button ng-show="pledge.fundraiser.rewards.length > 1 && pledge.amount >= (pledge.fundraiser.rewards | orderBy:['amount'])[1].amount" class="btn btn-small btn-primary" ng-click="pledge.$show_survey = !pledge.$show_survey" ng-class="{ 'active': pledge.$show_survey }">Reward</button>
+      <button ng-show="pledge.fundraiser.rewards.length > 1 && pledge.amount >= (pledge.fundraiser.rewards | orderBy:['amount'])[1].amount" class="btn btn-sm btn-primary" ng-click="pledge.$show_survey = !pledge.$show_survey" ng-class="{ 'active': pledge.$show_survey }">Reward</button>
     </td>
   <tr>
   </tbody>

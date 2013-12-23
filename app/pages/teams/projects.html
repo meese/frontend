@@ -5,11 +5,11 @@
 </ul>
 
 <div ng-show="team">
-  <div class="row-fluid">
-    <div class="span3">
+  <div class="row">
+    <div class="col-md-3">
       <ng-include src="'pages/teams/partials/infobox.html'"></ng-include>
     </div>
-    <div class="span9" ng-controller="TeamTrackersController">
+    <div class="col-md-9" ng-controller="TeamTrackersController">
       <ng-include src="'pages/teams/partials/header.html'"></ng-include>
       <ng-include src="'pages/teams/partials/tabs.html'"></ng-include>
 
@@ -23,7 +23,7 @@
               <input
                 name="input"
                 type="text"
-                class="search-query span4"
+                class="search-query col-md-4"
                 placeholder="Search for projects"
                 ng-model="project_owner_search"
                 typeahead="project.id as project.name for project in doTypeahead($viewValue, 'project_owner_search')"
@@ -34,9 +34,9 @@
           </div>
           <div>
             <ul class="thumbnails team-tracker-thumbnails">
-              <li ng-repeat="tracker in team.trackers | filter: trackerOwner()" class="span2">
+              <li ng-repeat="tracker in team.trackers | filter: trackerOwner()" class="col-md-2">
                 <button type="button" ng-show="is_admin || is_developer" class="close" ng-click="unclaim_tracker(tracker)">
-                  <i class="icon-remove"></i>
+                  <i class="glyphicon glyphicon-remove"></i>
                 </button>
                 <a class="thumbnail text-center" ng-href="/trackers/{{tracker.slug}}">
                   <img ng-src="{{tracker.medium_image_url}}"/>
@@ -63,7 +63,7 @@
               <input
                 name="input"
                 type="text"
-                class="search-query span4"
+                class="search-query col-md-4"
                 placeholder="Search for projects"
                 ng-model="project_search"
                 typeahead-wait-ms="250"
@@ -81,9 +81,9 @@
       </div>
 
       <ul class="thumbnails team-tracker-thumbnails">
-        <li ng-repeat="tracker in team.trackers | filter:trackerUsed()" class="span2">
+        <li ng-repeat="tracker in team.trackers | filter:trackerUsed()" class="col-md-2">
           <button type="button" ng-show="is_admin || is_developer" class="close" ng-click="remove_tracker(tracker)"><i
-            class="icon-remove"></i></button>
+            class="glyphicon glyphicon-remove"></i></button>
           <a class="thumbnail text-center" ng-href="/trackers/{{tracker.slug}}">
             <img ng-src="{{tracker.medium_image_url}}"/>
             <span>{{tracker.name}}</span>

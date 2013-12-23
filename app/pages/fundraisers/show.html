@@ -8,14 +8,14 @@
   <div ng-show="fundraiser">
     <div ng-include="'pages/fundraisers/partials/header.html'"></div>
     <div ng-include="'pages/fundraisers/partials/nav_tabs.html'"></div>
-    <div class="row-fluid">
-      <div class="span3">
+    <div class="row">
+      <div class="col-md-3">
         <div ng-include="'pages/fundraisers/partials/left_column.html'"></div>
       </div>
 
-      <div class="span9">
-        <div class="row-fluid">
-          <div class="span9">
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-9">
             <div ng-show="fundraiser.updates.length > 0">
               <div class="page-">
                 <h3>Updates</h3>
@@ -34,7 +34,7 @@
                     </a>
                   </td>
                   <td>
-                    <div class="muted">{{ update.published_at | date }}</div>
+                    <div class="text-muted">{{ update.published_at | date }}</div>
                   </td>
                 </tr>
               </table>
@@ -44,28 +44,28 @@
             <div ng-bind-html-unsafe="sanitized_description"></div>
           </div>
 
-          <div class="span3">
+          <div class="col-md-3">
             <div ng-include="'pages/fundraisers/partials/top_backers.html'"></div>
 
             <div class="bounty-buttons" ng-show="fundraiser.published && fundraiser.in_progress">
               <h3>Pledge Now</h3>
 
               <form ng-submit="pledge_redirect()">
-                <div class="controls controls-row">
-                  <a ng-click="pledge_redirect(15)" class="span4 btn btn-primary btn-block">$15</a>
-                  <a ng-click="pledge_redirect(35)" class="span4 btn btn-primary btn-block">$35</a>
-                  <a ng-click="pledge_redirect(50)" class="span4 btn btn-primary btn-block">$50</a>
+                <div class="controls form-group">
+                  <a ng-click="pledge_redirect(15)" class="col-md-4 btn btn-primary btn-block">$15</a>
+                  <a ng-click="pledge_redirect(35)" class="col-md-4 btn btn-primary btn-block">$35</a>
+                  <a ng-click="pledge_redirect(50)" class="col-md-4 btn btn-primary btn-block">$50</a>
                 </div>
 
-                <div class="controls controls-row">
-                  <a ng-click="pledge_redirect(100)" class="span4 btn btn-primary btn-block">$100</a>
-                  <a ng-click="pledge_redirect(250)" class="span4 btn btn-primary btn-block">$250</a>
-                  <a ng-click="pledge_redirect(500)" class="span4 btn btn-primary btn-block">$500</a>
+                <div class="controls">
+                  <a ng-click="pledge_redirect(100)" class="col-md-4 btn btn-primary btn-block">$100</a>
+                  <a ng-click="pledge_redirect(250)" class="col-md-4 btn btn-primary btn-block">$250</a>
+                  <a ng-click="pledge_redirect(500)" class="col-md-4 btn btn-primary btn-block">$500</a>
                 </div>
 
-                <div class="controls controls-row">
-                  <a class="span4 btn btn-primary btn-block" ng-click="pledge_redirect(1000)">$1000</a>
-                  <input style="margin-bottom: 0;" integer-only type="number" min="5" ng-model="pledge.amount" class="span8 input-small" placeholder="Other amount" tooltip="$5 minimum pledge" tooltip-placement="bottom" toolip-trigger="focus"/>
+                <div class="controls form-group">
+                  <a class="col-md-4 btn btn-primary btn-block" ng-click="pledge_redirect(1000)">$1000</a>
+                  <input style="margin-bottom: 0;" integer-only type="number" min="5" ng-model="pledge.amount" class="col-md-8 input-sm" placeholder="Other amount" tooltip="$5 minimum pledge" tooltip-placement="bottom" toolip-trigger="focus"/>
                   <input style="display:none;" type="submit" id="custom-amount-submit" />
                 </div>
               </form>
