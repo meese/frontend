@@ -41,7 +41,7 @@
           </td>
           <td style="width: 40%">
             <div class="issue-goals progress progress-striped" style="margin: 0;">
-              <div class="progress-bar progress-bar-success" style="width: {{ 100*issue.bounty_total/developer_goal.amount | at_least:15 | at_most:100 | percent }};">
+              <div class="progress-bar progress-bar-success" style="width: {{ 100*issue.bounty_total/developer_goal.amount | atLeast:15 | atMost:100 | percent }};">
                 <span>{{issue.bounty_total/developer_goal.amount | percent}}</span>
               </div>
             </div>
@@ -75,7 +75,7 @@
 
         <div class="col-md-5">
           <div class="issue-goals progress progress-striped" style="margin-top: 10px;">
-            <div class="progress-bar progress-bar-success" style="width: {{100*issue.bounty_total/next_developer_goal.amount | at_least:5 | at_most:100 | number:0 }}%;">
+            <div class="progress-bar progress-bar-success" style="width: {{100*issue.bounty_total/next_developer_goal.amount | atLeast:5 | atMost:100 | number:0 }}%;">
               <span>{{issue.bounty_total/next_developer_goal.amount | percent}}</span>
             </div>
           </div>

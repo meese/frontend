@@ -15,11 +15,25 @@ module.exports = function (grunt) {
         livereload: true
       },
       jshint: {
-        files: ['gruntfile.js', 'app/pages/**/*.js', 'test/**/*.js'],
+        files: [
+          'gruntfile.js',
+          'app/pages/**/*.js',
+          'app/services/**/*.js',
+          'app/directives/**/*.js',
+          'app/filters/**/*.js',
+          'test/**/*.js'
+        ],
         tasks: ['jshint']
       },
       html_src: {
-        files: ['gruntfile.js', 'app/pages/**/*.js', 'app/index.html'],
+        files: [
+          'gruntfile.js',
+          'app/pages/**/*.js',
+          'app/services/*.js',
+          'app/directives/*.js',
+          'app/filters/*.js',
+          'app/index.html'
+        ],
         tasks: ['html_src']
       },
       livereload: {
@@ -27,6 +41,9 @@ module.exports = function (grunt) {
           'app/**/*.html',
           '{.tmp,app}/styles/**/*.css',
           '{.tmp,app}/pages/**/*.js',
+          '{.tmp,app}/services/*.js',
+          '{.tmp,app}/directives/*.js',
+          '{.tmp,app}/filters/*.js',
           'app/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
         ],
         tasks: []//['jshint']
@@ -98,10 +115,12 @@ module.exports = function (grunt) {
       options: {
         jshintrc: '.jshintrc'
       },
-
       all: [
         'gruntfile.js',
         'app/pages/**/*.js',
+        'app/services/*.js',
+        'app/directives/*.js',
+        'app/filters/*.js',
         'test/**/*.js'
       ]
     },
@@ -113,7 +132,13 @@ module.exports = function (grunt) {
     html_src: {
       dist: {
         files: {
-          'app/index.html': ['app/pages/app.js','app/pages/**/*.js']
+          'app/index.html': [
+            'app/pages/app.js',
+            'app/pages/**/*.js',
+            'app/services/*.js',
+            'app/directives/*.js',
+            'app/filters/*.js'
+          ]
         }
       }
     },
@@ -289,35 +314,6 @@ module.exports = function (grunt) {
       }
     }
   });
-
-
-//    'coffee:dist',
-//    'compass:server',
-//    'coffee',
-//    'compass',
-//    'coffee',
-//    'compass',
-//    'coffee',
-//    'compass',
-//    'coffee',
-//    'compass:dist',
-//    'connect:test',
-
-
-//  grunt.registerTask('test-unit', [
-//    'clean:server',
-//    'connect:test',
-//    'jshint',
-//    'karma'
-//  ]);
-//  grunt.registerTask('test-e2e', [
-//    'clean:server',
-//    'connect:e2e',
-//    'karma:e2e'
-//  ]);
-/////////////////////////////////////
-
-
 
   grunt.registerTask('server', [
     'clean:server',

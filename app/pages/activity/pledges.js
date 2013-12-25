@@ -9,7 +9,7 @@ angular.module('app')
         resolve: $person
       });
   })
-  .controller('PledgeActivity', function($scope, $routeParams, $api, $pageTitle, $filter) {
+  .controller('PledgeActivity', function($scope, $routeParams, $api, $pageTitle) {
     $pageTitle.set('Pledges', 'Activity');
 
     $api.call("/user/pledges").then(function(pledges) {
