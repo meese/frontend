@@ -15,7 +15,7 @@
           </div>
           <div class="panel-body">
             <p>Paste issue URL or search by keyword.</p>
-            <p>Ex. <strong>https://github.com/bountysource/frontend</strong></p>
+            <p>Ex. <strong>https://github.com/rails</strong></p>
             <form class="form-inline" ng-submit="submit_search()" role="search">
               <div class="form-group">
                 <input type="text" class="form-control" ng-model="search_query" placeholder="Issue URL, Project, Language, etc.">
@@ -33,7 +33,7 @@
           </div>
           <div class="panel-body">
             <p>Earn cash by solving open-source issues.</p>
-            <p ng-show="bounty_info && bounty_info.amount > 0">There is <strong>{{bounty_info.amount | dollars}}</strong> available in bounties
+            <p ng-show="bounty_info && bounty_info.amount > 0">There is <strong>{{bounty_info.amount | dollars}}</strong> available
               <ng-pluralize count="bounty_info.count" when="{ 'one': 'on an', 'other': 'across' }"></ng-pluralize>
               <strong>{{bounty_info.count | number}}</strong>
               <ng-pluralize count="bounty_info.count" when="{ 'one': 'issue.', 'other': 'issues.' }"></ng-pluralize>

@@ -25,7 +25,7 @@
     <!-- endbuild -->
 
     <!-- build:css assets/app.css -->
-    <!--<link rel="stylesheet" href="styles/layout.css">-->
+    <link rel="stylesheet" href="styles/layout.css">
     <!--<link rel="stylesheet" href="styles/chatroom.css">-->
     <!--<link rel="stylesheet" href="styles/companies.css">-->
     <!--<link rel="stylesheet" href="styles/fundraisers.css">-->
@@ -41,16 +41,15 @@
     <!--<link rel="stylesheet" href="styles/tools.css">-->
     <!-- endbuild -->
   </head>
-  <body>
+  <body ng-app="app" ng-controller="MainController">
+    <div id="wrap">
+      <ng-include src="'pages/layout/navbar.html'"></ng-include>
 
-    <div id="wrap" ng-app="app" ng-controller="MainController">
-      <div>
-        <ng-include src="'pages/layout/navbar.html'"></ng-include>
-        <div ng-class="{ 'container': !no_container }" ng-view></div>
-      </div>
-      <div id="footer">
-        <ng-include src="'pages/layout/footer.html'"></ng-include>
-      </div>
+      <!-- Page content-->
+      <div ng-class="{ 'container': !no_container }" ng-view></div>
+    </div>
+    <div id="footer">
+      <ng-include src="'pages/layout/footer.html'"></ng-include>
     </div>
 
     <!--[if lt IE 9]>

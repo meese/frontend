@@ -1,44 +1,100 @@
-html, body { height: 100%; margin: 0; padding: 0; }
-a{ cursor: pointer; }
-
-/* navbar */
-.navbar { border-top: 4px solid #129e5e; }
-.navbar .brand { margin: 6px 15px 3px 5px; padding: 0; }
-.navbar .brand strong { display: none }
-.navbar-search { position: relative; }
-.navbar-search .search-query { padding-left: 29px; }
-.navbar-search .icon-search { position: absolute; top: 7px; left: 11px; }
-
-
-/* footer */
-footer {
-  position: relative;
-  margin-top: -200px;  /* negative value of footer height */
-  clear:both;
-  padding-top: 30px;
-  background-color: #333;
-  height: 200px;
-  border-top: 4px solid #129e5e;
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
 }
-footer ul { margin: 0; list-style: none; }
-footer a, footer { color: #bbb; }
-#main { border-bottom: 240px solid transparent; }
 
-/* space for navbar and footer */
+/* Wrapper for page content to push down footer */
 #wrap {
   min-height: 100%;
-}
-#main {
-  overflow: auto;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
 }
 
-@media (max-width: 979px) {
-  #main { border-top: 0; }
-  footer { height: auto; }
+/* Set the fixed height of the footer here */
+#footer {
+  padding-top: 30px;
+  background-color: #333;
+  border-top: 4px solid #129e5e;
+  color: #bbb;
+  margin-top: 30px;
 }
+
+/* @screen-xs */
 @media (max-width: 767px) {
-  .container { margin: 0 10px; }
+  #footer {
+    height: 600px;
+  }
 }
 
-#main > .container { border-top: 25px solid transparent; }
+/* @screen-sm */
+@media (min-width: 768px) and (max-width: 991px) {
+  #footer {
+    height: 320px;
+  }
+}
+
+/* @screen-md */
+@media (min-width: 992px) and (max-width: 1199px) {
+  #footer {
+    height: 230px;
+    padding-left: 30px;
+  }
+}
+
+/* @screen-lg */
+@media (min-width: 1200px) {
+  #footer {
+    height: 200px;
+  }
+}
+
+
+
+/*html, body { height: 100%; margin: 0; padding: 0; }*/
+/*a{ cursor: pointer; }*/
+
+ /*navbar*/
+/*.navbar { border-top: 4px solid #129e5e; }*/
+/*.navbar .brand { margin: 6px 15px 3px 5px; padding: 0; }*/
+/*.navbar .brand strong { display: none }*/
+/*.navbar-search { position: relative; }*/
+/*.navbar-search .search-query { padding-left: 29px; }*/
+/*.navbar-search .icon-search { position: absolute; top: 7px; left: 11px; }*/
+
+
+ /*footer*/
+/*footer {*/
+  /*position: relative;*/
+  /*margin-top: -200px;   *//* negative value of footer height */
+  /*clear:both;*/
+  /*padding-top: 30px;*/
+  /*background-color: #333;*/
+  /*height: 200px;*/
+  /*border-top: 4px solid #129e5e;*/
+/*}*/
+/*footer ul { margin: 0; list-style: none; }*/
+/*footer a, footer { color: #bbb; }*/
+/*#main { border-bottom: 240px solid transparent; }*/
+
+ /*space for navbar and footer*/
+/*#wrap {*/
+  /*min-height: 100%;*/
+/*}*/
+/*#main {*/
+  /*overflow: auto;*/
+/*}*/
+
+/*@media (max-width: 979px) {*/
+  /*#main { border-top: 0; }*/
+  /*footer { height: auto; }*/
+/*}*/
+/*@media (max-width: 767px) {*/
+  /*.container { margin: 0 10px; }*/
+/*}*/
+
+/*#main > .container { border-top: 25px solid transparent; }*/
 
