@@ -5,13 +5,13 @@
     </strong>
   </div>
   <div class="panel-body">
+
     <div class="top-backers-table">
       <div class="row" ng-repeat="backer in backers | orderBy:'-total_backed'| limitTo:3" style="margin-bottom: 10px;">
         <div class="col-md-4">
           <a owner-href="backer">
             <img class="img-responsive img-rounded" ng-src="{{backer.image_url}}" />
           </a>
-
         </div>
         <div class="col-md-8">
           <div><a owner-href="backer">{{backer.display_name}}</a></div>
