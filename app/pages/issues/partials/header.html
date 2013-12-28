@@ -1,17 +1,6 @@
 <div>
-  <div class="hidden-xs">
-    <div class="row">
-      <div class="col-md-1">
-        <a ng-href="/trackers/{{issue.tracker.slug}}"><img ng-src="{{issue.tracker.image_url}}" class="thumbnail" /></a>
-      </div>
-      <div class="col-md-11">
-        <h4 style="margin-top: 0;">{{ issue.title || 'Loading...' }}</h4>
-        <issue-status-label issue="issue"></issue-status-label>
-      </div>
-    </div>
-  </div>
-  <div class="visible-xs">
-    <h4 style="margin-top: 0;">{{ issue.title || 'Loading...' }} <issue-status-label issue="issue"></issue-status-label></h4>
- </div>
-  <br />
+  <h4 style="margin-top: 0;">
+    <span>{{issue.title}}</span>
+    <issue-status-label issue="issue"></issue-status-label>
+  </h4>
 </div>

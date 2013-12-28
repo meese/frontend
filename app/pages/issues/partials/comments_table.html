@@ -1,0 +1,17 @@
+<div>
+  <div>
+    <h4 ng-if="issue.comments.length > 0">Comments ({{issue.comments.length}})</h4>
+    <h4 ng-if="issue.comments.length == 0">No comments.</h4>
+  </div>
+  <br ng-if="issue.comments.length > 0" />
+  <table class="table table-striped" style="table-layout: fixed;">
+    <tbody>
+    <tr ng-repeat="comment in issue.comments | orderBy:['+created_at']">
+      <td>
+        <ng-include src="'pages/issues/partials/comment_content.html'"></ng-include>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
