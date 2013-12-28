@@ -84,7 +84,10 @@
       <a ng-href="/trackers/{{issue.tracker.slug}}">{{issue.tracker.name}}</a>
     </td>
     <td ng-if="$showIssueTitle">
-      <a ng-href="/issues/{{issue.slug}}">{{issue.title}}</a>
+      <a ng-href="/issues/{{issue.slug}}">
+        <i class="glyphicon glyphicon-fire text-danger" ng-if="issue.bounty_total >= 1000"></i>
+        {{issue.title}}
+      </a>
     </td>
     <td ng-if="$showBountyTotal" style="text-align: center">
       <a ng-href="/issues/{{issue.slug}}/bounties" ng-show="issue.bounty_total > 0" class="label label-success">
