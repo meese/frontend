@@ -11,7 +11,7 @@
     <div class="col-md-8 col-md-offset-2">
       <form ng-submit="submit_search()" class="form-inline">
         <input style="height: 45px; padding: 0 10px;" type="text" class="col-md-10" ng-model="search_query" placeholder="Search all projects and issues" autofocus />
-        <button type="submit" class="btn btn-primary btn-lg" ng-disabled="!search_query"><i class="glyphicon glyphicon-search glyphicon-white"></i> Search</button>
+        <button type="submit" class="btn btn-primary btn-lg" ng-disabled="!search_query"><i class="glyphicon glyphicon-search "></i> Search</button>
       </form>
 
       <p>You can search for projects and issues by entering:</p>
@@ -38,24 +38,24 @@
   </div>
 </div>
 
-<div class="text-center" collapse="!search_query_submitted || !search_pending || processing_async">
+<div class="text-center" ng-hide="!search_query_submitted || !search_pending || processing_async">
   <p class="lead">Searching for '{{search_query}}'...</p>
   <loading-bar></loading-bar>
 </div>
 
-<div collapse="!processing_async">
+<div ng-hide="!processing_async">
   <loading-bar>Setting up {{tracker.name}} for the first time...</loading-bar>
 </div>
 
-<div class="row" collapse="!search_query_submitted || search_pending || processing_async">
+<div class="row" ng-hide="!search_query_submitted || search_pending || processing_async">
   <div class="col-md-3">
-    <div collapse="search_pending">
+    <div ng-hide="search_pending">
       <div class="well">
         <input style="margin: 0;" type="text" class="col-md-12" ng-model="search_filter" placeholder="Filter search results..." />
       </div>
     </div>
 
-    <div collapse="search_pending">
+    <div ng-hide="search_pending">
       <div class="well text-center">
         <div><strong>Can't find your issue?</strong></div>
         <br />

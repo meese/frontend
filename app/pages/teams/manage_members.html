@@ -51,11 +51,11 @@
                 <input type="checkbox" ng-model="member.is_admin" ng-change="member_changed(member)" ng-disabled="member.$saving || (is_admin && current_person.id == member.id)" />
               </td>
               <td style="text-align: center;">
-                <div collapse="member.$dirty">
-                  <button ng-click="remove_member(member)" class="btn btn-xs btn-block btn-danger" ng-disabled="member.id == current_person.id"><i class="glyphicon glyphicon-trash glyphicon glyphicon-white"></i></button>
+                <div ng-hide="member.$dirty">
+                  <button ng-click="remove_member(member)" class="btn btn-xs btn-block btn-danger" ng-disabled="member.id == current_person.id"><i class="glyphicon glyphicon-trash glyphicon"></i></button>
                 </div>
-                <div collapse="!member.$dirty">
-                  <button ng-click="update_member(member)" class="btn btn-xs btn-primary" ><i class="glyphicon glyphicon-ok glyphicon-white"></i></button>
+                <div ng-hide="!member.$dirty">
+                  <button ng-click="update_member(member)" class="btn btn-xs btn-primary" ><i class="glyphicon glyphicon-ok"></i></button>
                   <button ng-click="cancel_member_changes(member)" class="btn btn-default btn-xs" ><i class="glyphicon glyphicon-remove"></i></button>
                 </div>
               </td>
@@ -63,7 +63,7 @@
             </tbody>
           </table>
 
-          <div id="pending-members" collapse="!pending_invites || pending_invites.length <= 0">
+          <div id="pending-members" ng-hide="!pending_invites || pending_invites.length <= 0">
             <h3 style="margin-bottom: 0;">Pending Members</h3>
             <div ng-show="add_member_error.message">
               <alert type="add_member_error.type" close="add_member_error.message = null">{{add_member_error.message}}</alert>
@@ -118,10 +118,10 @@
 
                 <td style="text-align: center;">
                   <div ng-show="new_member.email && !new_member.registered" tooltip="Send Invite">
-                    <button type="submit" class="btn btn-xs btn-block btn-primary" ng-click="team_invite_create()"><i class="glyphicon glyphicon-envelope glyphicon glyphicon-white"></i></button>
+                    <button type="submit" class="btn btn-xs btn-block btn-primary" ng-click="team_invite_create()"><i class="glyphicon glyphicon-envelope glyphicon "></i></button>
                   </div>
                   <div ng-show="new_member.email && new_member.registered" tooltip="Add to Team">
-                    <button type="submit" class="btn btn-xs btn-block btn-success" ng-click="team_invite_create()"><i class="glyphicon glyphicon-plus glyphicon glyphicon-white"></i></button>
+                    <button type="submit" class="btn btn-xs btn-block btn-success" ng-click="team_invite_create()"><i class="glyphicon glyphicon-plus glyphicon "></i></button>
                   </div>
                 </td>
               </form>

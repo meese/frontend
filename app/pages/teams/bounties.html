@@ -15,7 +15,7 @@
       <ng-include src="'pages/teams/partials/tabs.html'"></ng-include>
 
       <!-- Loading message... -->
-      <div collapse="bounties_resolved" class="text-center">
+      <div ng-hide="bounties_resolved" class="text-center">
         <p class="lead">Loading bounties...</p>
         <div class="progress progress-striped active">
           <div class="progress-bar" style="width: 100%;"></div>

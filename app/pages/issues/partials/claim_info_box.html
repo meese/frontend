@@ -56,7 +56,7 @@
           <small>(<a ng-click="show_more_info = !show_more_info">more info</a>)</small>
         </div>
       </div>
-      <div collapse="!show_more_info" class="text-center">
+      <div ng-hide="!show_more_info" class="text-center">
         <br />
         <p>
           <span ng-show="issue.bounty_claims[0].accept_count > 0"><strong>{{issue.bounty_claims[0].accept_count | number}}</strong> of <strong>{{issue.bounty_claims[0].backers_count | number}}</strong></span>
@@ -85,7 +85,7 @@
     <!-- Show your claim status, or button to create claim -->
     <div ng-show="!issue.winning_bounty_claim">
       <br />
-      <button ng-show="issue.my_bounty_claim" class="btn btn-block btn-danger" ng-click="issue.my_bounty_claim.destroy()"><i class="glyphicon glyphicon-trash glyphicon glyphicon-white"></i> Retract My Claim</button>
+      <button ng-show="issue.my_bounty_claim" class="btn btn-block btn-danger" ng-click="issue.my_bounty_claim.destroy()"><i class="glyphicon glyphicon-trash glyphicon "></i> Retract My Claim</button>
 
       <div ng-hide="issue.my_bounty_claim">
         <h4 style="margin-bottom: 5px;">Claim Bounty</h4>

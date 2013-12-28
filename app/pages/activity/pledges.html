@@ -38,7 +38,7 @@
         <small class="text-info"><i>Updated reward {{pledge.$updated_at | date:'medium'}}</i></small>
       </div>
 
-      <div collapse="!pledge.$show_survey">
+      <div ng-hide="!pledge.$show_survey">
         <br />
         <form class="form-horizontal" name="form">
           <div class="form-group">
@@ -76,7 +76,7 @@
           <div class="form-group">
             <div>
               <button type="submit" class="btn btn-primary" ng-click="update_pledge(pledge)" ng-disabled="form.$pristine">Save Changes</button>
-              <button class="btn" ng-click="pledge.$show_survey = false">Close</button>
+              <button class="btn btn-default" ng-click="pledge.$show_survey = false">Close</button>
             </div>
           </div>
         </form>
@@ -111,11 +111,11 @@
 
     <td ng-hide="pledge.anonymous">
       <button class="btn btn-sm btn-block btn-success" ng-click="toggle_anonymous(pledge)" ng-hide="pledge.owner_type == 'Team'">
-        <i class="glyphicon glyphicon-eye-open glyphicon-white"></i>
+        <i class="glyphicon glyphicon-eye-open"></i>
         Publicized
       </button>
       <button class="btn btn-sm btn-block btn-success disabled" ng-show="pledge.owner_type == 'Team'" tooltip="Team pledges cannot be anonymous">
-        <i class="glyphicon glyphicon-eye-open glyphicon-white"></i>
+        <i class="glyphicon glyphicon-eye-open"></i>
         Publicized
       </button>
     </td>

@@ -24,7 +24,7 @@
         </div>
       </form>
 
-      <div collapse="!my_developer_goal_updated_at">
+      <div ng-hide="!my_developer_goal_updated_at">
         <div style="margin-top: 10px; text-align: center;">
           <small class="text-success"><em>Updated {{my_developer_goal_updated_at | date:'medium'}}</em></small>
         </div>

@@ -87,7 +87,7 @@
             </span>
           </div>
 
-          <div collapse="!bounty.bounty_expiration || bounty.bounty_expiration == 'never'">
+          <div ng-hide="!bounty.bounty_expiration || bounty.bounty_expiration == 'never'">
             <div class="control-group">
               <div class="controls">
                 <h5>When the bounty expires...</h5>
@@ -104,7 +104,7 @@
             </label>
             <div>
               <div ab-randomize ng-include="'pages/issues/partials/options/promotion.html'" onload="broadcastLoad()"></div>
-              <div collapse="!bounty.promotion">
+              <div ng-hide="!bounty.promotion">
                 <a class="btn btn-default btn-sm" ng-click="bounty.promotion = undefined">
                   <i class="glyphicon glyphicon-remove"></i>
                   No promotion
@@ -114,7 +114,7 @@
           </div>
         </div>
 
-        <div collapse="!show_fee">
+        <div ng-hide="!show_fee">
           <div class="form-group">
             <label class="control-label">Bountysource Fee:</label>
             <div>
@@ -123,11 +123,11 @@
           </div>
 
           <div class="form-group">
-            <button class="btn btn-large btn-primary" ng-click="create_payment()" ng-hide="previous_bounty_total > 0" type="submit" ng-disabled="form.$invalid">
+            <button class="btn btn-lg btn-primary" ng-click="create_payment()" ng-hide="previous_bounty_total > 0" type="submit" ng-disabled="form.$invalid">
               <span >Post {{bounty.amount || 0 | dollars}} Bounty</span>
             </button>
 
-            <button class="btn btn-large btn-primary" type="submit" ng-click="create_payment()" ng-show="previous_bounty_total > 0" ng-disabled="form.$invalid" tooltip="You previous posted a {{previous_bounty_total | dollars}} Bounty" tooltip-placement="right">
+            <button class="btn btn-lg btn-primary" type="submit" ng-click="create_payment()" ng-show="previous_bounty_total > 0" ng-disabled="form.$invalid" tooltip="You previous posted a {{previous_bounty_total | dollars}} Bounty" tooltip-placement="right">
               <span>Increase Bounty by {{bounty.amount | dollars}}</span>
             </button>
           </div>

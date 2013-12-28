@@ -9,6 +9,7 @@ angular.module('app')
         reloadOnSearch: false
       });
   })
+
   .controller('TrackerShow', function ($scope, $routeParams, $location, $api, $pageTitle, $timeout) {
     $api.tracker_get($routeParams.id).then(function(tracker) {
       // Edge case: GitHub repo changes owner, and we create a new Tracker model.
@@ -62,8 +63,9 @@ angular.module('app')
       // Load issues for tracker. If the tracker was just created (has not been synced yet),
       // throw in a timeout to allow time for issues to be added
       $timeout(function() {
-        $scope.issues = $api.tracker_issues_get($routeParams.id).then(function(issues) {
+        $api.tracker_issues_get($routeParams.id).then(function(issues) {
           $scope.issues_resolved = true;
+
           $scope.open_bounties = 0; //frontend count of unclaimed bounties
           for (var i=0; i<issues.length; i++) {
             issues[i].bounty_total = parseFloat(issues[i].bounty_total);
@@ -75,6 +77,8 @@ angular.module('app')
             issues[i].thumbs_up_count = issues[i].thumbs_up_count || 0;
             issues[i].comment_count = issues[i].comment_count || 0;
           }
+
+          $scope.issues = issues;
           return issues;
         });
       }, tracker.synced_at ? 0 : 2500);
@@ -82,6 +86,10 @@ angular.module('app')
       $scope.tracker = tracker;
       return tracker;
     });
+
+    $scope.issuesList = {
+      columns: ['bountyTotal', 'thumbsUpCount', 'participantsCount', 'issueAge']
+    };
 
     $scope.issue_filter_options = {
       text:          $location.search().text                    || null,

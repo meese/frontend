@@ -5,6 +5,6 @@ angular.module('app.directives').directive('loadingBar', function() {
     restrict: "E",
     replace: true,
     transclude: true,
-    template: '<div><div class="text-center"><p class="lead" ng-transclude></p><progress percent="100" class="progress-striped active"></progress></div></div>'
+    template: '<div class="text-center"><p class="lead" ng-transclude></p><div class="progress progress-striped active"><div class="progress-bar progress-bar-info" role="progressbar" style="width: 100%;"></div></div></div>'
   };
 });

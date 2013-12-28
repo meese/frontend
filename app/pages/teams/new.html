@@ -14,11 +14,11 @@
   <li class="active"><a href="/teams/new">Create</a></li>
 </ul>
 
-<div collapse="!creating_team">
+<div ng-hide="!creating_team">
   <loading-bar>Creating {{form_data.name || "team"}}...</loading-bar>
 </div>
 
-<div collapse=creating_team>
+<div ng-hide=creating_team>
   <form class="form-horizontal" ng-submit="create_team()">
     <div class="alert alert-danger" ng-show="error">{{error}}</div>
 

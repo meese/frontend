@@ -11,6 +11,11 @@ angular.module('app')
   .controller('newHomeCtrl', function ($scope, $window, $api) {
     $scope.tabs_resolved = false;
 
+    // Settings for the issue tables.
+    $scope.issueListData = {
+      columns: ['trackerImage', 'trackerName', 'participantsCount', 'thumbsUpCount', 'issueAge']
+    };
+
     $scope.set_current_saved_search_tab = function(selected_tab) {
       for (var i=0;i<$scope.tabs_collection.length;i++) {
         var tab = $scope.tabs_collection[i];

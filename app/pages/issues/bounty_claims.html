@@ -36,7 +36,7 @@
       </div>
 
       <!-- Submit bounty claim form -->
-      <div collapse="!show_new_claim_form">
+      <div ng-hide="!show_new_claim_form">
         <div class="well" ng-hide="issue.my_bounty_claim || issue.winning_bounty_claim">
           <form class="form-horizontal" name="form_data" ng-submit="bounty_claim_submit()">
             <p>
@@ -58,7 +58,7 @@
             <div class="form-group">
               <div>
                 <button type="submit" class="btn btn-primary" ng-disabled="!new_bounty_claim.code_url && !new_bounty_claim.description">Claim the Bounty</button>
-                <button type="submit" class="btn" ng-click="show_new_claim_form = false">Cancel</button>
+                <button type="submit" class="btn btn-default" ng-click="show_new_claim_form = false">Cancel</button>
               </div>
             </div>
           </form>
@@ -92,7 +92,7 @@
               <h4 style="margin-bottom: 10px;">Claim Rejected</h4>
               <p>You <strong>rejected</strong> this claim.</p>
               <p><a ng-href="/people/{{claim.person.slug}}">{{claim.person.display_name}}</a> cannot claim the bounty unless you <strong>resolve your dispute</strong>.</p>
-              <button class="btn btn-block btn-success" ng-class="{ active: (claim.show_resolve_form) }" ng-click="claim.show_resolve_form = !claim.show_resolve_form"><i class="glyphicon glyphicon-thumbs-up glyphicon glyphicon-white"></i> Resolve Dispute</button>
+              <button class="btn btn-block btn-success" ng-class="{ active: (claim.show_resolve_form) }" ng-click="claim.show_resolve_form = !claim.show_resolve_form"><i class="glyphicon glyphicon-thumbs-up glyphicon "></i> Resolve Dispute</button>
             </div>
 
             <!-- You have not voted on this claim -->
@@ -100,44 +100,44 @@
               <h4 style="margin-bottom: 10px;">Response Needed</h4>
               <p><strong class="text-success">Accept</strong> this claim to expedite payout.</p>
               <p><strong class="text-danger">Reject</strong> this claim if it does not resolve the issue.</p>
-              <button class="btn btn-block btn-success" ng-class="{ active: (claim.show_accept_form) }" ng-click="claim.show_accept_form = !claim.show_accept_form"><i class="glyphicon glyphicon-thumbs-up glyphicon glyphicon-white"></i> Accept</button>
-              <button class="btn btn-block btn-danger" ng-class="{ active: (claim.show_dispute_form) }" ng-click="claim.show_dispute_form = !claim.show_dispute_form"><i class="glyphicon glyphicon-thumbs-down glyphicon glyphicon-white"></i> Reject</button>
+              <button class="btn btn-block btn-success" ng-class="{ active: (claim.show_accept_form) }" ng-click="claim.show_accept_form = !claim.show_accept_form"><i class="glyphicon glyphicon-thumbs-up glyphicon "></i> Accept</button>
+              <button class="btn btn-block btn-danger" ng-class="{ active: (claim.show_dispute_form) }" ng-click="claim.show_dispute_form = !claim.show_dispute_form"><i class="glyphicon glyphicon-thumbs-down glyphicon "></i> Reject</button>
             </div>
           </div>
         </div>
 
         <div class="col-md-9">
           <!-- Submit rejection form -->
-          <div collapse="!claim.show_dispute_form">
+          <div ng-hide="!claim.show_dispute_form">
             <div class="alert alert-danger">
               <p>Why are you rejecting this claim?</p>
               <form style="margin-bottom: 0">
                 <textarea ng-model="claim.new_dispute.description" style="width: 100%;" rows="3" placeholder="Another developer deserves this bounty." ></textarea>
-                <button class="btn btn-danger" ng-click="claim.submit_reject()"><i class="glyphicon glyphicon-thumbs-down glyphicon-white"></i> Reject claim</button>
+                <button class="btn btn-danger" ng-click="claim.submit_reject()"><i class="glyphicon glyphicon-thumbs-down "></i> Reject claim</button>
                 <button class="btn btn-default" ng-click="claim.show_dispute_form = false">Cancel</button>
               </form>
             </div>
           </div>
 
           <!-- Resolve dispute form -->
-          <div collapse="!claim.show_resolve_form">
+          <div ng-hide="!claim.show_resolve_form">
             <div class="alert alert-success">
               <p>How was your dispute resolved?</p>
               <form style="margin-bottom: 0">
                 <textarea ng-model="claim.new_resolve.description" style="width: 100%;" rows="3" placeholder="{{claim.person.display_name}} addressed my concerns, thanks!" ></textarea>
-                <button class="btn btn-success" ng-click="claim.resolve()"><i class="glyphicon glyphicon-thumbs-up glyphicon-white"></i> Resolve Dispute</button>
+                <button class="btn btn-success" ng-click="claim.resolve()"><i class="glyphicon glyphicon-thumbs-up "></i> Resolve Dispute</button>
                 <button class="btn btn-default" ng-click="claim.show_resolve_form = false">Cancel</button>
               </form>
             </div>
           </div>
 
           <!-- Accept solution form -->
-          <div collapse="!claim.show_accept_form">
+          <div ng-hide="!claim.show_accept_form">
             <div class="alert alert-success">
               <p>You are accepting {{claim.person.display_name}}'s solution as the winner of the {{issue.bounty_total | dollars}} bounty. Have anything to say to them?</p>
               <form style="margin-bottom: 0">
                 <textarea ng-model="claim.new_accept.description" style="width: 100%;" rows="3" placeholder="You did a great job {{claim.person.display_name}}, thanks for the fix!" ></textarea>
-                <button class="btn btn-success" ng-click="claim.accept()"><i class="glyphicon glyphicon-thumbs-up glyphicon-white"></i> Accept</button>
+                <button class="btn btn-success" ng-click="claim.accept()"><i class="glyphicon glyphicon-thumbs-up "></i> Accept</button>
                 <button class="btn btn-default" ng-click="claim.show_accept_form = false">Cancel</button>
               </form>
             </div>

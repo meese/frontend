@@ -10,4 +10,4 @@ angular.module('app.filters').filter('shuffle', function() {
     }
     return array;
   };
-});;
+});

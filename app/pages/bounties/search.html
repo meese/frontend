@@ -30,7 +30,7 @@
       autocomplete="off"
       />
 
-      <div class="filter-box" collapse="languages_loaded.length <= 0">
+      <div class="filter-box" ng-hide="languages_loaded.length <= 0">
         <span class="badge search-filter" ng-repeat="language in languages_loaded">
           <button type="button" class="close" ng-click="remove_language(language)">
             <i class="glyphicon glyphicon-remove"></i>
@@ -69,7 +69,7 @@
       <div class="project-box">
        <span class="badge search-filter" ng-repeat="tracker in trackers_selected">
          <button type="button" class="close" ng-click="remove_tracker(tracker)">
-           <i class="glyphicon glyphicon-remove glyphicon-white"></i>
+           <i class="glyphicon glyphicon-remove "></i>
          </button>
          {{tracker.name}}
        </span>
