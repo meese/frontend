@@ -1,31 +1,47 @@
 <div class="well bounty-buttons" ng-show="issue.can_add_bounty && !issue.winning_bounty_claim" ng-controller="BountyBoxController">
-  <div style="text-align: center;">
+  <div class="text-center">
     <h2 style="margin: 0;">{{issue.bounty_total | dollars}}</h2>
-    <strong>Bounty <span ng-show="issue.bounties.length > 0">from {{issue.bounties.length | number}} {{"backer" | pluralize:issue.bounties.length}}</span></strong>
+    <p>
+      <strong>Bounty <span ng-show="issue.bounties.length > 0">from {{issue.bounties.length | number}} {{"backer" | pluralize:issue.bounties.length}}</span></strong>
+    </p>
   </div>
 
-  <br />
   <backer-thumbnails style="text-align: center;" issue="issue"></backer-thumbnails>
-  <br />
 
   <div>
     <form style="margin-bottom: 0;" ng-submit="place_bounty_redirect()">
-      <div class="controls form-group">
-        <a ng-click="place_bounty_redirect(15)" class="col-md-4 btn btn-primary btn-block">$15</a>
-        <a ng-click="place_bounty_redirect(35)" class="col-md-4 btn btn-primary btn-block">$35</a>
-        <a ng-click="place_bounty_redirect(50)" class="col-md-4 btn btn-primary btn-block">$50</a>
+      <div class="row">
+        <div class="col-sm-4">
+          <a ng-click="place_bounty_redirect(15)" class="btn btn-primary btn-block">$15</a>
+        </div>
+        <div class="col-sm-4">
+          <a ng-click="place_bounty_redirect(35)" class="btn btn-primary btn-block">$35</a>
+        </div>
+        <div class="col-sm-4">
+          <a ng-click="place_bounty_redirect(50)" class="btn btn-primary btn-block">$50</a>
+        </div>
       </div>
-
-      <div class="controls form-group">
-        <a ng-click="place_bounty_redirect(100)" class="col-md-4 btn btn-primary btn-block">$100</a>
-        <a ng-click="place_bounty_redirect(250)" class="col-md-4 btn btn-primary btn-block">$250</a>
-        <a ng-click="place_bounty_redirect(500)" class="col-md-4 btn btn-primary btn-block">$500</a>
+      <br />
+      <div class="row">
+        <div class="col-sm-4">
+          <a ng-click="place_bounty_redirect(100)" class="col-md-4 btn btn-primary btn-block">$100</a>
+        </div>
+        <div class="col-sm-4">
+          <a ng-click="place_bounty_redirect(250)" class="col-md-4 btn btn-primary btn-block">$250</a>
+        </div>
+        <div class="col-sm-4">
+          <a ng-click="place_bounty_redirect(500)" class="col-md-4 btn btn-primary btn-block">$500</a>
+        </div>
       </div>
-
-      <div class="controls form-group">
-        <a class="col-md-4 btn btn-primary btn-block" ng-click="place_bounty_redirect(1000)">$1000</a>
-        <input style="margin-bottom: 0;" integer-only type="number" min="5" ng-model="bounty.amount" class="col-md-8 input-sm" placeholder="Other amount" tooltip="$5 minimum bounty" tooltip-placement="bottom" toolip-trigger="focus"/>
-        <input style="display:none;" type="submit" id="custom-amount-submit" />
+      <br />
+      <div class="row">
+        <div class="col-sm-4">
+          <a class="btn btn-primary btn-block" ng-click="place_bounty_redirect(1000)">$1000</a>
+        </div>
+        <div class="col-sm-8">
+          <input type="number" class="form-control" min="5" ng-model="bounty.amount" placeholder="Other amount" tooltip="$5 minimum bounty" tooltip-placement="bottom" toolip-trigger="focus" integer-only />
+          <input style="display: none;" type="submit" id="custom-amount-submit" />
+        </div>
       </div>
     </form>
   </div>
