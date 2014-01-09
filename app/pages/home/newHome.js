@@ -28,7 +28,13 @@ angular.module('app')
 
     $scope.construct_tab_results = function(tab) {
       $scope.tab_results_resolved = false;
-      $api.call(tab.query).then(function(issues) {
+      $api.call(tab.query).then(function(response) {
+        var issues;
+        if (response.issues) {
+          issues = response.issues;
+        } else {
+          issues = response;
+        }
         if (!issues.error) {
           for (var i=0;i<issues.length;i++) {
             var issue = issues[i];
@@ -62,17 +68,119 @@ angular.module('app')
       }
     };
 
-    $scope.remove_saved_search = function() {};
+    $scope.remove_search_tab = function(tab) {
+      for (var i=0;i<$scope.tabs_collection.length;i++) {
+        if (tab === $scope.tabs_collection[i]) {
+          if (tab === $scope.current_saved_search_tab) {
+            $scope.set_current_saved_search_tab($scope.tabs_collection[i-1]);
+          }
+          $api.saved_search_remove($scope.tabs_collection[i].id);
+          $scope.tabs_collection.splice(i,1);
+          break;
+        }
+      }
+    };
 
     $scope.set_search_tab = function() {
       $scope.current_saved_search_tab = null;
     };
 
-    $scope.submit_saved_search = function(form_data) {
-      var query = "/search/bounty_search?search="+form_data.search;
-      var new_tab = { name: form_data.name, query: query };
-      $scope.tabs_collection.push(new_tab);
-      $scope.set_current_saved_search_tab(new_tab);
+    $scope.reset_form_data = function() {
+      $scope.form_data = {search: "", min: "", max: "", name: ""};
+    };
+
+    $scope.reset_form_data();
+
+    $scope.submit_saved_search = function(form_data, languages_selected, trackers_selected) {
+      $scope.alert = false;
+
+      form_data.languages = languages_selected.map(function(language) { return language.id; }) || "";
+      form_data.language_names = languages_selected.map(function(language) { return language.name; });
+      form_data.trackers = trackers_selected.map(function(tracker) { return tracker.id; }) || "";
+      form_data.tracker_names = trackers_selected.map(function(tracker) { return tracker.name; });
+
+      // needs to make form_data blank arrays if there is no value for them
+      var query = "/search/bounty_search?search="+encodeURIComponent(form_data.search)+"&order=participants_count&direction=desc&languages=["+form_data.languages+"]&trackers=["+form_data.trackers+"]&min="+form_data.min+"&max="+form_data.max;
+      var tab_name = form_data.name || form_data.search || form_data.language_names.join(" - ");
+      var new_tab = { name: tab_name, query: query, locked: false };
+      if (new_tab.name === "") {
+        $scope.alert = "Please enter a name for your search.";
+        return;
+      }
+      $api.saved_search_create(new_tab).then(function(response) {
+        if (!response.hasOwnProperty("error")) {
+          $scope.tabs_collection.push(response);
+          $scope.set_current_saved_search_tab(response);
+          $scope.reset_form_data();
+          $scope.trackers_selected = [];
+          $scope.languages_selected = [];
+        } else {
+          $scope.alert = response.error;
+        }
+      });
+    };
+
+    $scope.languages = [];
+    $scope.languages_selected = [];
+    $api.languages_get().then(function(languages) {
+      languages.sort(function(a,b) {
+        return (a.weight > b.weight ? -1 : (a.weight === b.weight ? 0 : 1));
+      });
+
+      $scope.$watch('selected_language', function(newValue, oldValue, scope) {
+        for (var i = 0; i < languages.length; i++) {
+          if (!newValue) {
+            break;
+          }
+          if (newValue.id === languages[i].id) {
+            scope.languages_selected.push(newValue);
+            scope.selected_language = "";
+            break;
+          }
+        }
+      });
+
+      $scope.languages = angular.copy(languages);
+      return $scope.languages;
+    });
+
+    $scope.trackers_selected = [];
+    $scope.doTypeahead = function ($viewValue) {
+      return $api.tracker_typeahead($viewValue).then(function (trackers) {
+        $scope.$watch('selected_tracker', function(newValue, oldValue, scope) {
+          for (var i = 0; i < trackers.length; i++) {
+            if (!newValue) {
+              break;
+            }
+            if (newValue.id === trackers[i].id) {
+              scope.trackers_selected.push(newValue);
+              scope.selected_tracker = "";
+              break;
+            }
+          }
+        });
+        return trackers;
+      });
+    };
+
+    //removes trackers from trackers_selected array
+    $scope.remove_tracker = function(tracker) {
+      for (var i = 0; i < $scope.trackers_selected.length; i++) {
+        if (tracker.id === $scope.trackers_selected[i].id) {
+          $scope.trackers_selected.splice(i, 1);
+          break;
+        }
+      }
+    };
+
+    //removes languages from selected_languages array
+    $scope.remove_language = function(language) {
+      for (var i = 0; i < $scope.languages_selected.length; i++) {
+        if (language.id === $scope.languages_selected[i].id) {
+          $scope.languages_selected.splice(i, 1);
+          break;
+        }
+      }
     };
 
   });

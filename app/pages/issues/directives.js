@@ -56,7 +56,7 @@ angular.module('app').
         } else if (scope.options && scope.options.sort) {
           scope.issue_sort = { "column": scope.options.sort, "desc": true };
         } else {
-          scope.issue_sort = { "column": "participants_count", "desc": true };
+          scope.issue_sort = { "column": null, "desc": null };
         }
         scope.update_sort = function(obj, column) {
           if (obj.column === column) {
@@ -66,6 +66,7 @@ angular.module('app').
             obj.desc = true;
           }
         };
+
         scope.column = {};
         scope.has_column = function(col_name) {
           if (scope.column[col_name]) {

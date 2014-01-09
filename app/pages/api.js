@@ -430,6 +430,14 @@ angular.module('api.bountysource',[]).
       return this.call("/search/bounty_search", "GET", query);
     };
 
+    this.saved_search_create = function(data) {
+      return this.call("/tabs", "POST", data);
+    };
+
+    this.saved_search_remove = function(id) {
+      return this.call("/tabs/"+id, "DELETE");
+    };
+
     this.saved_search_tabs = function() {
       return this.call("/tabs");
     };
