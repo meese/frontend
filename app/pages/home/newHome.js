@@ -9,6 +9,15 @@ angular.module('app')
       });
   })
   .controller('newHomeCtrl', function ($scope, $window, $api) {
+    //SCENARIO -- PAGE LOAD --> api called for tabs (api.saved_search_tabs) ---> set current tab to first item in array (set_current_saved_search_tab) ---> constructs tab results of selected tab (construct_tab_results)
+    //SCENARIO -- CLICK ON ANOTHER TAB --> set clicked tab to current tab ---> construct tab results
+    //SCENARIO -- CLICK BACK TO FIRST TAB --> $scope.set_current_saved_search_tab(the_original_tab), function recognizes that the_original_tab.issues exists (previously loaded onto object), sets $scope.tab_results_resolved to true, displaying already cached results on page
+
+    //SCENARIO -- CLICK ON TAB TO CREATE A NEW SAVED SEARCH --> $scope.set_saved_search_form() sets $scope.current_saved_search to null --> Because there is no tab object for plus-icon tab, we resort to <li ng-class="{active: check_active_state_on_tab('search') }"></li> instead of <li ng-class="{active: check_active_state_on_tab(tab) }"></li>,
+    //you'll note that the check_active_state_on_tab has a special case for a param value of 'search' with no current_saved_search_tab present. The absence of $scope.current_saved_search_tab triggers an ng-show on the form div.
+
+    //SCENARIO -- ENTER FORM INFO AND CLICK SUBMIT --> api call to create saved search --> returned tab from callback is pushed to tabs_collection and set to current saved search tab. So form will disappear and tab will construct issue results
+
     $scope.tabs_resolved = false;
 
     $scope.set_current_saved_search_tab = function(selected_tab) {
@@ -17,7 +26,7 @@ angular.module('app')
         if (selected_tab === tab) {
           $scope.current_saved_search_tab = selected_tab;
           if (!selected_tab.issues) {
-            $scope.construct_tab_results(selected_tab);
+            $scope.construct_issue_results_from_tab(selected_tab);
           } else {
             $scope.tab_results_resolved = true; //set to true in case tab results are cached and user has clicked over from a tab with results still in loading process
           }
@@ -26,7 +35,7 @@ angular.module('app')
       }
     };
 
-    $scope.construct_tab_results = function(tab) {
+    $scope.construct_issue_results_from_tab = function(tab) {
       $scope.tab_results_resolved = false;
       $api.call(tab.query).then(function(response) {
         var issues;
@@ -60,7 +69,7 @@ angular.module('app')
       $scope.tabs_resolved = true;
     });
 
-    $scope.active_tab = function(tab) {
+    $scope.check_active_state_on_tab = function(tab) {
       if (tab === 'search' && !$scope.current_saved_search_tab) {
         return true;
       } else {
@@ -68,7 +77,7 @@ angular.module('app')
       }
     };
 
-    $scope.remove_search_tab = function(tab) {
+    $scope.remove_saved_search_tab = function(tab) {
       for (var i=0;i<$scope.tabs_collection.length;i++) {
         if (tab === $scope.tabs_collection[i]) {
           if (tab === $scope.current_saved_search_tab) {
@@ -81,7 +90,9 @@ angular.module('app')
       }
     };
 
-    $scope.set_search_tab = function() {
+
+    // SAVED SEARCH TAB form functions
+    $scope.set_saved_search_form = function() {
       $scope.current_saved_search_tab = null;
     };
 

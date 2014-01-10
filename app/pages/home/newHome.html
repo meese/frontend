@@ -52,13 +52,13 @@
 
         <div ng-show="tabs_resolved">
           <ul class="nav nav-tabs">
-            <li style="position:relative;" ng-repeat="tab in tabs_collection" ng-class="{active: active_tab(tab) }">
+            <li style="position:relative;" ng-repeat="tab in tabs_collection" ng-class="{active: check_active_state_on_tab(tab) }">
               <a ng-click="set_current_saved_search_tab(tab)" style="padding-right:18px;">
                 {{tab.name}}
-                <i ng-click="remove_search_tab(tab)" class="close close-icon" ng-hide="tab.locked" style="position:absolute;top:0;right:0;padding-right:6px;">&times;</i>
+                <i ng-click="remove_saved_search_tab(tab)" class="close close-icon" ng-hide="tab.locked" style="position:absolute;top:0;right:0;padding-right:6px;">&times;</i>
               </a>
             </li>
-            <li ng-show="current_person && tabs_collection.length < 10" ng-class="{active: active_tab('search') }"><a ng-click="set_search_tab()"><i class="icon-plus"></i></a></li>
+            <li ng-show="current_person && tabs_collection.length < 10" ng-class="{active: check_active_state_on_tab('search') }"><a ng-click="set_saved_search_form()"><i class="icon-plus"></i></a></li>
           </ul>
 
           <div ng-hide="tab_results_resolved" class="text-center">
