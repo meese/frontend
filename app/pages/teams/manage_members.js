@@ -19,6 +19,7 @@ angular.module('app')
     $scope.add_member_error = {};
 
     $scope.members.then(function(members) {
+      console.log(members);
       // initialize master
       for (var i=0; i<members.length; i++) {
         members[i].$master = angular.copy(members[i]);
@@ -27,7 +28,7 @@ angular.module('app')
 
       $scope.member_changed = function(member) {
         var master = angular.copy(member.$master);
-        delete master.$master;
+        delete master.$master;  
         delete master.$dirty;
         member.$dirty = !angular.equals(member, master);
       };
@@ -44,9 +45,9 @@ angular.module('app')
         var payload = {
           admin: member.is_admin,
           developer: member.is_developer,
-          public: member.is_public
+          public: member.is_public,
+          budget: member.has_budget ? member.budget : null
         };
-
         member.$master = angular.copy(member);
         member.$dirty = false;
 
@@ -57,10 +58,26 @@ angular.module('app')
         }
 
         member.$saving = true;
-        $api.team_member_update($routeParams.id, member.id, payload).then(function() {
+        $api.team_member_update($routeParams.id, member.id, payload).then(function(response) {
           member.$saving = false;
-          member.$saved_at = new Date();
+          if ('error' in response) {
+            member.$saved_at = null;
+            member.$update_error = response.error;
+          } else {
+            delete member.$update_error;
+            member.$saved_at = new Date();
+            member.balance = response.balance;
+          }
         });
+      };
+
+      $scope.reload_budget = function (member) {
+        var budget_data = {
+          budget: member.budget
+        };
+
+        member.$master = angular.copy(member);
+        member.$dirty = false;
       };
 
       $scope.remove_member = function(member) {
@@ -103,6 +120,10 @@ angular.module('app')
         });
       };
     });
+
+    // Team Budget Logic
+
+
 
     $scope.reset_member_form = function() {
       $scope.new_member = {

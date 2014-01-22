@@ -17,16 +17,20 @@
       <ng-include src="'pages/teams/partials/tabs.html'"></ng-include>
 
       <div class="row-fluid">
-        <div class="span8">
+        <div class="span12">
           <h3 style="margin-bottom: 0;">Members</h3>
           <p>Members of your team. You can change the permissions for your team members.</p>
           <table class="table members table-hover table-striped" ng-show="members.length > 0">
             <thead>
             <tr>
-              <th style="width: 30%;">Username</th>
-              <th style="width: 10%; text-align: center;">Public</th>
-              <th style="width: 10%; text-align: center;">Developer</th>
-              <th style="width: 10%; text-align: center;">Admin</th>
+              <th style="width: 23%;">Username</th>
+              <th style="width: 5%; text-align: center;">Limit?</th>
+              <th style="width: 18%; text-align: center;">Budget Limit</th>
+              <th style="width: 5%; text-align: center;">Reload</th>
+              <th style="width: 5%; text-align: center;" >Balance</th>
+              <th style="width: 10%; text-align: center;">Public <i class="icon-question-sign" tooltip="Publicly displayed as a member of TestTeam on the members tab."></i></th>
+              <th style="width: 14%; text-align: center;">Developer <i class="icon-question-sign" tooltip="Authorized to spend money from the TestTeam account. Can change team settings (name, logo, projects used, etc)."></i></th>
+              <th style="width: 10%; text-align: center;">Admin <i class="icon-question-sign" tooltip="Can add/remove projects and members to the team, as well as assign roles to members."></i></th>
               <th style="width: 10%; text-align: center;"></th>
             </tr>
             </thead>
@@ -38,8 +42,27 @@
                   <small class="text-info"><i>Saving changes...</i></small>
                 </div>
                 <div ng-show="!member.$saving && member.$saved_at">
-                  <small class="muted text-success">Saved {{member.$saved_at | date:'medium'}}</small>
+                  <small class="muted text-success">Saved {{member.$saved_at | date:'short'}}</small>
                 </div>
+                <div ng-show="!member.$saving && member.$update_error">
+                  <small class="muted text-error">{{ member.$update_error }}</small>
+                </div>
+              </td>
+              <td style="text-align: center;">
+                  <input type="checkbox" id="enableBudget" ng-model="member.has_budget" ng-change="member_changed(member)">
+              </td>
+              <td style="text-align: center;">
+                <div class="input-prepend input-append">
+                  <span class="add-on">$</span>
+                  <input class="span6" type="number" ng-model="member.budget" ng-disabled="!member.has_budget || !member.is_developer" ng-change="member_changed(member)"/>
+                  <span class="add-on">.00</span>
+                </div>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-block btn-mini" ng-click="update_member(member)"><i class="icon-repeat icon-white"></i></button>
+              </td>
+              <td style="text-align: center">
+                {{ member.balance | dollars }}
               </td>
               <td style="text-align: center;">
                 <input type="checkbox" ng-model="member.is_public" ng-change="member_changed(member)" ng-disabled="member.$saving" />
@@ -126,16 +149,6 @@
           </form>
           <div ng-show="add_member_error.message">
             <alert type="add_member_error.type" close="add_member_error.message = null">{{add_member_error.message}}</alert>
-          </div>
-        </div>
-        <div class="span4">
-          <div class="well">
-            <h4>Public</h4>
-            <p>Publicly displayed as a member of {{team.name}} on the <a ng-href="/teams/{{team.slug}}/members">members</a> tab.</p>
-            <h4>Developer</h4>
-            <p>Authorized to <strong>spend</strong> money from the {{team.name}} account. Can change team settings (name, logo, projects used, etc).</p>
-            <h4>Admin</h4>
-            <p>Can <strong>add/remove projects and members</strong> to the team, as well as <strong>assign roles</strong> to members.</p>
           </div>
         </div>
       </div>
