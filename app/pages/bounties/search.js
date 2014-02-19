@@ -81,8 +81,8 @@ angular.module('app')
     $scope.trackers_to_load_from_params = [];
     $scope.trackers_loaded = [];
 
-    $scope.languages_promise = $api.languages_get().then(function(languages) {
-      languages.sort(function(a,b) {
+    $scope.languages_promise = $api.languages_get().then(function(all_languages) {
+      all_languages.sort(function(a,b) {
         return (a.weight > b.weight ? -1 : (a.weight === b.weight ? 0 : 1));
       });
 
@@ -116,8 +116,8 @@ angular.module('app')
         }
       });
 
-      $scope.languages = languages;
-      return languages;
+      $scope.languages = all_languages;
+      return all_languages;
     });
 
     //removes languages from selected_languages array
@@ -133,7 +133,7 @@ angular.module('app')
             break;
           }
         }
-      };
+      }
     };
 
     $scope.do_tracker_typeahead = function($viewValue) {

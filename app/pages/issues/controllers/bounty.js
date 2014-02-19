@@ -44,7 +44,7 @@ angular.module('app')
 
     $api.issue_get($routeParams.id).then(function(issue) {
       $scope.tracker_id = issue.tracker.id;
-      
+
       $scope.create_payment = function() {
         var attrs = angular.copy($scope.bounty);
         delete attrs.fee;
