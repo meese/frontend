@@ -1,7 +1,34 @@
 'use strict';
 
 angular.module('api.bountysource',[]).
-  service('$api', function($http, $q, $cookieStore, $rootScope, $location, $window, $sniffer, $filter, $log) {
+  service('$api', function($http, $resource, $q, $cookieStore, $rootScope, $location, $window, $sniffer, $filter, $log) {
+
+    ///////////////////// version 2 //////////////////
+    var version = {Accept: 'application/vnd.bountysource+json; version=2'},
+      host;
+
+    host = {
+      'dev': 'http://localhost:5000',
+      'staging': 'https://staging-api.bountysource.com',
+      'prod': 'https://api.bountysource.com'
+    }[$rootScope.environment || 'prod'];
+
+    this.Bounties = $resource();
+    this.ClaimEvents = $resource();
+    this.Claims = $resource();
+    this.Comments = $resource();
+    this.Following = $resource();
+    this.Issues = $resource(
+      host + '/issues/:id',
+      null,
+      { 'query': { method:'GET', headers: version } }
+    );
+    this.LinkedAccounts = $resource();
+    this.Trackers = $resource();
+    this.Users = $resource();
+
+    ///////////////////// End version 2 //////////////
+
     var $api = this; // hack to store self reference
     this.access_token_cookie_name = 'v2_access_token';
 
