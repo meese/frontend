@@ -157,8 +157,12 @@ angular.module('api.bountysource',[]).
       // parse arguments
         var args = Array.prototype.slice.call(arguments);
         var url = $rootScope.api_host + args.shift().replace(/^\//,'');
+        var version = typeof(args[0]) === 'number' ? args.shift() : 1;
         var method = typeof(args[0]) === 'string' ? args.shift() : 'GET';
         var params = typeof(args[0]) === 'object' ? args.shift() : {};
+        var headers = (version && version > 1) ?
+          { Accept: 'application/vnd.bountysource+json: version=' + version } :
+          { };
         var callback = typeof(args[0]) === 'function' ? args.shift() : function(response) { return response.data; };
 
         // merge in params
@@ -217,16 +221,16 @@ angular.module('api.bountysource',[]).
             deferred.resolve(callback(parsed_response));
           };
           // make actual HTTP call with promise
-          if (method === 'GET') { $http.get(url, { params: params }).success(cors_callback); }
-          else if (method === 'HEAD') { $http.head(url, { params: params }).success(cors_callback); }
-          else if (method === 'DELETE') { $http.delete(url, { params: params }).success(cors_callback); }
+          if (method === 'GET') { $http.get(url, { params: params, headers: headers }).success(cors_callback); }
+          else if (method === 'HEAD') { $http.head(url, { params: params, headers: headers }).success(cors_callback); }
+          else if (method === 'DELETE') { $http.delete(url, { params: params, headers: headers }).success(cors_callback); }
           else if (method === 'POST') { $http.post(url, params, {}).success(cors_callback); }
           else if (method === 'PUT') { $http.put(url, params, {}).success(cors_callback); }
 
         } else {
           params._method = method;
           params.callback = 'JSON_CALLBACK';
-          $http.jsonp(url, { params: params }).success(function(response) {
+          $http.jsonp(url, { params: params, headers: headers }).success(function(response) {
             deferred.resolve(callback(response));
           });
         }
@@ -419,20 +423,7 @@ angular.module('api.bountysource',[]).
     };
 
     this.tracker_issues_get = function(id) {
-      return this.call("/projects/"+id+"/issues");
-
-//      return this.callv2({
-//        url: '/issues',
-//        tracker_id: id,
-//        per_page: 50
-//      }).then(function(response) {
-//
-//        console.log(response);
-//
-//        return [];
-//
-//      });
-
+      return this.v2.issues({ tracker_id: id, can_add_bounty: true });
     };
 
     this.issues_featured = function() {
