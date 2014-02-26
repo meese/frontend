@@ -437,56 +437,65 @@ angular.module('api.bountysource',[]).
     };
 
     this.issue_get = function(id, callback) {
-      return this.call("/issues/"+id, callback).then(function(issue) {
+      return this.call_v2({
+        url: "/issues/"+id,
+        params: {
+          include_body_html: true,
+          include_tracker: true,
+          include_claims: true
+        }
+      }).then(function(issue) {
+        issue = issue.data;
+
         issue.my_bounty_claim = undefined;
         issue.winning_bounty_claim = undefined;
 
-        for (var i=0; i<issue.bounty_claims.length; i++) {
+        for (var i=0; i<issue.claims.length; i++) {
           // find your claim
-          if ($rootScope.current_person && issue.bounty_claims[i].person.id === $rootScope.current_person.id) {
-            issue.my_bounty_claim = issue.bounty_claims[i];
+          if ($rootScope.current_person && issue.claims[i].person.id === $rootScope.current_person.id) {
+            issue.my_bounty_claim = issue.claims[i];
           }
 
           // find the winning bounty claim
-          if (!issue.winning_bounty_claim && issue.bounty_claims[i].collected) {
-            issue.winning_bounty_claim = issue.bounty_claims[i];
+          if (!issue.winning_bounty_claim && issue.claims[i].collected) {
+            issue.winning_bounty_claim = issue.claims[i];
           }
         }
 
-        for (i=0; i<issue.bounties.length; i++) {
-          // TODO legacy hack, turn owner into person
-          issue.bounties[i].person = issue.bounties[i].owner;
-          issue.bounties[i].amount = parseInt(issue.bounties[i].amount, 10);
-        }
+        // for (i=0; i<issue.bounties.length; i++) {
+        //   // TODO legacy hack, turn owner into person
+        //   issue.bounties[i].person = issue.bounties[i].owner;
+        //   issue.bounties[i].amount = parseInt(issue.bounties[i].amount, 10);
+        // }
 
-        //START enforce list of unique backers (prevent repeat backers)
-        var unique_backer_bounties = {};
-        for (i=0; i<issue.bounties.length; i++) {
-          var bounty = issue.bounties[i];
-          if (bounty.owner) {
-            var backer_id = bounty.owner.id + bounty.owner.type; // adding id+type prevents collision between multiple owner types
-            if (unique_backer_bounties[backer_id]) { // backer already exists, add amounts
-              var previous_bounty_amount = unique_backer_bounties[backer_id].amount;
-              var bounty_amount = parseInt(bounty.amount, 10);
-              var new_amount = previous_bounty_amount + bounty_amount;
-              unique_backer_bounties[backer_id].amount = new_amount;
-            } else {
-              unique_backer_bounties[backer_id] = bounty;
-              unique_backer_bounties[backer_id].amount = parseInt(bounty.amount, 10);
-            }
-          } else {
-            unique_backer_bounties["anon_"+i] = bounty; //anonymous backer, add to list
-            unique_backer_bounties["anon_"+i].amount = parseInt(bounty.amount, 10);
-          }
-        }
-        //cast back into array
-        var unique_backer_bounties_arr = [];
-        for (var key in unique_backer_bounties) {
-          unique_backer_bounties_arr.push(unique_backer_bounties[key]);
-        }
-        //override original bounties list with new uniqueified list
-        issue.bounties = unique_backer_bounties_arr;
-        //END list of unique backers
+        // //START enforce list of unique backers (prevent repeat backers)
+        // var unique_backer_bounties = {};
+        // for (i=0; i<issue.bounties.length; i++) {
+        //   var bounty = issue.bounties[i];
+        //   if (bounty.owner) {
+        //     var backer_id = bounty.owner.id + bounty.owner.type; // adding id+type prevents collision between multiple owner types
+        //     if (unique_backer_bounties[backer_id]) { // backer already exists, add amounts
+        //       var previous_bounty_amount = unique_backer_bounties[backer_id].amount;
+        //       var bounty_amount = parseInt(bounty.amount, 10);
+        //       var new_amount = previous_bounty_amount + bounty_amount;
+        //       unique_backer_bounties[backer_id].amount = new_amount;
+        //     } else {
+        //       unique_backer_bounties[backer_id] = bounty;
+        //       unique_backer_bounties[backer_id].amount = parseInt(bounty.amount, 10);
+        //     }
+        //   } else {
+        //     unique_backer_bounties["anon_"+i] = bounty; //anonymous backer, add to list
+        //     unique_backer_bounties["anon_"+i].amount = parseInt(bounty.amount, 10);
+        //   }
+        // }
+        // //cast back into array
+        // var unique_backer_bounties_arr = [];
+        // for (var key in unique_backer_bounties) {
+        //   unique_backer_bounties_arr.push(unique_backer_bounties[key]);
+        // }
+        // //override original bounties list with new uniqueified list
+        // issue.bounties = unique_backer_bounties_arr;
+        // //END list of unique backers
 
         return issue;
       });

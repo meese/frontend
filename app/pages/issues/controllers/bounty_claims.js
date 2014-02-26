@@ -26,11 +26,11 @@ angular.module('app')
       }
 
       // initialize all bounty claims
-      for (var i=0; i<issue.bounty_claims.length; i++) {
-        $scope.$init_bounty_claim(issue.bounty_claims[i]);
+      for (var i=0; i<issue.claims.length; i++) {
+        $scope.$init_bounty_claim(issue.claims[i]);
 
         // has the person accepted a claim already?
-        if (!$scope.claim_accepted && $scope.current_person && issue.bounty_claims[i].value === true) {
+        if (!$scope.claim_accepted && $scope.current_person && issue.claims[i].value === true) {
           $scope.claim_accepted = true;
         }
       }
@@ -50,7 +50,7 @@ angular.module('app')
 
             if (!bounty_claim.error) {
               // push new bounty claim into table
-              issue.bounty_claims.push(bounty_claim);
+              issue.claims.push(bounty_claim);
 
               $location.url("/issues/"+issue.slug+"/solutions");
             }
