@@ -442,7 +442,8 @@ angular.module('api.bountysource',[]).
         params: {
           include_body_html: true,
           include_tracker: true,
-          include_claims: true
+          include_claims: true,
+          include_author: true
         }
       }).then(function(issue) {
         issue = issue.data;
