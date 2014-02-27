@@ -17,6 +17,10 @@ angular.module('app')
       state: "available"
     };
 
+    $scope.comments = $api.issue_comments_get($routeParams.id).then(function (response) {
+      return response.data;
+    });
+
     $scope.issue = $api.issue_get($routeParams.id).then(function(issue) {
       $pageTitle.set(issue.title, issue.tracker.name);
 
