@@ -33,17 +33,17 @@ angular.module('app')
       }
 
       // set bounty info message data
-      if (issue.claims.length === 0) {
+      if (issue.bounty_claims.length === 0) {
         $scope.bounty_alert.state = "available";
         $scope.bounty_alert.type = "info";
       } else if (issue.winning_bounty_claim) {
         $scope.bounty_alert.state = "accepted";
         $scope.bounty_alert.type = "success";
-      } else if (issue.claims.length === 1) {
+      } else if (issue.bounty_claims.length === 1) {
         if (issue.bounty_claims[0].rejected) {
           $scope.bounty_alert.state = "rejected";
           $scope.bounty_alert.type = "error";
-        } else if (issue.claims[0].disputed) {
+        } else if (issue.bounty_claims[0].disputed) {
           $scope.bounty_alert.state = "disputed";
           $scope.bounty_alert.type = "warning";
         } else {

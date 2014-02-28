@@ -452,7 +452,7 @@ angular.module('api.bountysource',[]).
         params: {
           include_body_html: true,
           include_tracker: true,
-          include_claims: true,
+          include_bounty_claims: true,
           include_author: true
         }
       }).then(function(issue) {
@@ -461,15 +461,15 @@ angular.module('api.bountysource',[]).
         issue.my_bounty_claim = undefined;
         issue.winning_bounty_claim = undefined;
 
-        for (var i=0; i<issue.claims.length; i++) {
+        for (var i=0; i<issue.bounty_claims.length; i++) {
           // find your claim
-          if ($rootScope.current_person && issue.claims[i].person.id === $rootScope.current_person.id) {
-            issue.my_bounty_claim = issue.claims[i];
+          if ($rootScope.current_person && issue.bounty_claims[i].person.id === $rootScope.current_person.id) {
+            issue.my_bounty_claim = issue.bounty_claims[i];
           }
 
           // find the winning bounty claim
-          if (!issue.winning_bounty_claim && issue.claims[i].collected) {
-            issue.winning_bounty_claim = issue.claims[i];
+          if (!issue.winning_bounty_claim && issue.bounty_claims[i].collected) {
+            issue.winning_bounty_claim = issue.bounty_claims[i];
           }
         }
 
