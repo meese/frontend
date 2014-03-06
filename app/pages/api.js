@@ -437,7 +437,7 @@ angular.module('api.bountysource',[]).
     };
 
     this.issue_comments_get = function(issue_id) {
-      return this.call_v2({
+      return this.v2.call({
         url: "/comments?issue_id="+issue_id,
         params: {
           include_body_html: true,
@@ -447,7 +447,7 @@ angular.module('api.bountysource',[]).
     };
 
     this.issue_get = function(id, callback) {
-      return this.call_v2({
+      return this.v2.call({
         url: "/issues/"+id,
         params: {
           include_body_html: true,
