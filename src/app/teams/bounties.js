@@ -1,6 +1,12 @@
 'use strict';
 
-angular.module('app').controller('TeamBountiesController', function ($scope, $routeParams, $api) {
+angular.module('app').controller('TeamBountiesController', function ($scope, $routeParams, $api, $window) {
+
+  //  watch the window for changes to resize the piechart
+  angular.element($window).bind('resize', function () {
+    $scope.$apply();
+  });
+
   $scope.bounties_resolved = false;
 
   $scope.summary_sort = {

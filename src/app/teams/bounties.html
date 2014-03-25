@@ -15,8 +15,8 @@
       </div>
     </div>
 
-    <div ng-show="bounties_resolved">
-      <div>
+    <div class="row" ng-show="bounties_resolved">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
         <h3 class="no-margin">Bounty Summary</h3>
         <table class="table table-condensed table-striped">
           <thead>
@@ -42,6 +42,9 @@
           </tr>
           </tbody>
         </table>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+        <pie-chart data="stats" class="donut-chart"></pie-chart>
       </div>
     </div>
 
