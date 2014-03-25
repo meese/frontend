@@ -73,7 +73,7 @@ angular.module('directives').directive('pieChart', function ($compile) {
               var divs = logo+'<p style="display: inline-block;">'+nameWithValue+'</p>'
               return divs;
             })
-            .attr("tooltip-trigger", 'mouseenter')
+            .attr("tooltip-trigger", 'click')
             .attr("tooltip-placement", function (d, i) {
               return toolTipPlacement(d.startAngle, d.endAngle);
             })
