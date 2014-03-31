@@ -37,7 +37,7 @@ angular.module('app').controller('BaseTeamController', function($scope, $locatio
 
     return team;
   };
-
+ 
   $scope.set_team = function(team) {
     $scope.team = team;
   };

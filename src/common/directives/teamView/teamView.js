@@ -109,6 +109,15 @@ angular.module('directives').directive('teamView', function($rootScope, $locatio
         $analytics.pledgeStart({ amount: amount, type: 'buttons' });
       };
 
+      scope.payinRedirect = function (amount) {
+        var params = {};
+        if(amount) {
+          params.amount = amount;
+        }
+        $location.url('/teams/'+scope.team.slug+'/account').search(params);
+        // place Mixpanel tracking here
+      };
+
       scope.pledgeWithRewardRedirect = function(reward) {
         $location.url('/teams/' + scope.team.slug + '/fundraiser').search({ page: 'pledge', amount: reward.amount });
         $analytics.pledgeStart({ amount: reward.amount, type: 'reward' });
@@ -117,6 +126,11 @@ angular.module('directives').directive('teamView', function($rootScope, $locatio
       scope.bigPledgeButtonClicked = function() {
         $location.url('/teams/' + scope.team.slug + '/fundraiser').search({ page: 'pledge' });
         $analytics.pledgeStart({ type: 'bigbutton' });
+      };
+
+      scope.customPayinRedirect = function (amount) {
+        $location.url('/teams/'+scope.team.slug+'/account').search({ amount: amount });
+        // place Mixpanel tracking
       };
 
       scope.customPledgeRedirect = function(amount) {

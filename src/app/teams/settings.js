@@ -7,11 +7,13 @@ angular.module('app').controller('EditTeamController', function ($scope, $routeP
   $scope.form_data = {};
 
   $scope.team_promise.then(function(team) {
+    console.log("team", team);
     $scope.form_data = {
       name: team.name,
       slug: team.slug,
       url: team.url,
-      bio: team.bio
+      bio: team.bio,
+      accepts_public_payins: team.accepts_public_payins
     };
 
     $scope.save_team = function() {
