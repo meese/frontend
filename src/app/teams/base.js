@@ -19,7 +19,6 @@ angular.module('app').controller('BaseTeamController', function($scope, $locatio
   });
 
   $scope.setRelatedTrackers = function(team, trackers) {
-    console.log(trackers);
     $scope.ownedTrackers = [];
     $scope.usedTrackers = [];
 

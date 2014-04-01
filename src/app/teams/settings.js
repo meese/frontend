@@ -7,7 +7,6 @@ angular.module('app').controller('EditTeamController', function ($scope, $routeP
   $scope.form_data = {};
 
   $scope.team_promise.then(function(team) {
-    console.log("team", team);
     $scope.form_data = {
       name: team.name,
       slug: team.slug,

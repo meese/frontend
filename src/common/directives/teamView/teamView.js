@@ -71,6 +71,7 @@ angular.module('directives').directive('teamView', function($rootScope, $locatio
             include_owner: true,
             include_rewards: true
           }).then(function(response) {
+            
             scope.fundraisers = angular.copy(response.data);
 
             // Explicitly set activeFundraiser to false to let the rest of the app know that

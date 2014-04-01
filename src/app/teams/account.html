@@ -3,7 +3,7 @@
     <li><a href="/">Home</a></li>
     <li><a href="/teams">Teams</a></li>
     <li><a ng-href="/teams/{{team.slug}}">{{team.name || 'Loading...'}}</a></li>
-    <li><a>Settings</a></li>
+    <li><a>Account</a></li>
   </ul>
 
   <div team-view team="team">
@@ -20,6 +20,8 @@
               <strong style="line-height: 30px;">{{team.account_balance | dollars}}</strong>
             </div>
           </div>
+
+          <div class="form-group"><h3 ng-if="!team.account_balance" class="text-center">Show your support for {{ team.name }}!</h3></div>
 
           <div class="form-group">
             <label class="control-label col-md-4">Amount</label>
@@ -55,7 +57,7 @@
 
           <div class="form-group">
             <div class="col-md-offset-4 col-md-8">
-              <button type="submit" class="btn btn-primary" ng-disabled="!pay_in.amount || form_data.amount.$invalid">Make Pledge</button>
+              <button type="submit" class="btn btn-primary" ng-disabled="!pay_in.amount || form_data.amount.$invalid">Back this Team</button>
             </div>
           </div>
         </form>
@@ -72,7 +74,7 @@
       <!-- Non-Member Well -->
       <div class="well col-sm-5 col-md-5" ng-if="!is_member">
         <p style="margin-bottom: 0px;">
-          Your contribution will be used to support the development of {{ team.display_name }}'s open-source projects, either via bounties or funding development time.
+          Your contribution will be used to support the development of {{ team.name }}'s open-source projects, either via bounties or funding development time.
         </p>
       </div>
     </div>
