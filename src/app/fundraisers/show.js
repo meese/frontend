@@ -1,6 +1,17 @@
 'use strict';
 
 angular.module('fundraisers').controller('FundraiserShowController', function ($scope, $routeParams, $location, $window, $api, $sanitize, $pageTitle) {
+  $scope.fundraiserPromise = $api.fundraiser_get($routeParams.fundraiser_id).then(function(fundraiser) {
+
+    $scope.fundraiser = angular.copy(fundraiser);
+
+    // Not sure if these are used anywhere else besides fundraiserManageButtons, leave for now.
+    $scope.can_manage = $scope.fundraiser.person && $scope.current_person && $scope.fundraiser.person.id === $scope.current_person.id;
+    $scope.publishable = $scope.fundraiser.title && fundraiser.short_description && $scope.fundraiser.funding_goal && fundraiser.description;
+
+    return $scope.fundraiser;
+  });
+
   // $sanitize but allow iframes (i.e. youtube videos)
   $scope.fundraiserPromise.then(function(fundraiser) {
 

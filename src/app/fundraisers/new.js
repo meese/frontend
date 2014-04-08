@@ -37,10 +37,9 @@ angular.module('fundraisers').controller('FundraiserCreateController', function(
 
   $scope.create = function() {
     var payload = angular.copy($scope.fundraiser);
-
     $api.fundraiser_create(payload, function(response) {
       if (response.meta.success) {
-        $location.url("/fundraisers/"+response.data.slug+"/edit");
+        $location.url("/teams/"+response.data.team.slug+"/fundraisers/"+response.data.slug+"/edit");
       } else {
         $scope.error = response.data.error;
       }

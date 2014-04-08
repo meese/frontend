@@ -225,8 +225,8 @@
             </a>
 
             <ul class="dropdown-menu">
-              <li ng-show="activeFundraiser && is_admin">
-                <a ng-href="/fundraisers/{{activeFundraiser.id}}/edit">Edit Fundraiser</a>
+              <li ng-show="is_admin">
+                <a ng-href="teams/{{ team.slug }}/fundraisers">Manage Fundraisers</a>
               </li>
 
               <li ng-show="activeFundraiser && is_admin">

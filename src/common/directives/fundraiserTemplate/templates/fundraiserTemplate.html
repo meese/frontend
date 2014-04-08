@@ -1,4 +1,6 @@
 <div>
+  <!-- Error  -->
+  <div ng-show="error" class="alert alert-danger text-center">{{ error }}</div>
   <!-- Header -->
   <div ng-if="_options.showTitle">
     <div class="text-center">
@@ -214,7 +216,7 @@
           </button>
 
           <!-- Edit button -->
-          <a class="btn btn-block btn-info btn-lg" ng-href="/fundraisers/{{fundraiser.slug}}/edit" ng-show="!fundraiser.published">
+          <a class="btn btn-block btn-info btn-lg" ng-href="/teams/{{ fundraiser.team.slug }}/fundraisers/{{fundraiser.slug}}/edit">
             <i class="glyphicon glyphicon-edit"></i>
             <span>Edit</span>
           </a>
