@@ -17,7 +17,7 @@
       </div>
 
       <div ng-show="teams.length > 0" class="col-sm-9 col-md-9">
-        <fundraiser-edit-form fundraiser="fundraiser"></fundraiser-edit-form>
+        <fundraiser-edit-form fundraiser="fundraiser" team="team"></fundraiser-edit-form>
       </div>
 
       <div class="col-sm-3 col-md-3" ng-show="teams.length > 0">
@@ -36,10 +36,10 @@
             <input type="checkbox" ng-checked="!!fundraiser.funding_goal" disabled="" style="cursor: default;">
             <small ng-class="{ 'text-success': !!fundraiser.funding_goal }">Set your funding goal</small>
           </label></div>
-           <div class="checkbox"><label class="" style="cursor: default;">
+<!--            <div class="checkbox"><label class="" style="cursor: default;">
             <input type="checkbox" ng-checked="!!fundraiser.team_id" disabled="" style="cursor: default;">
             <small ng-class="{ 'text-success': !!fundraiser.team_id }">Add a team</small>
-          </label></div>
+          </label></div> -->
           <div class="checkbox"><label class="" style="cursor: default;">
             <input type="checkbox" ng-checked="!!fundraiser.description" disabled="" style="cursor: default;">
             <small ng-class="{ 'text-success': !!fundraiser.description }">Add a description</small>
@@ -47,7 +47,7 @@
           <br>
 
           <!--Big Create Fundraiser button-->
-          <button ng-click="create()" ng-disabled="!fundraiser.title || !fundraiser.short_description || !fundraiser.description || !fundraiser.funding_goal || !fundraiser.team_id || urls.$invalid" class="btn btn-block btn-success">Create Fundraiser</button>
+          <button ng-click="create()" ng-disabled="!fundraiser.title || !fundraiser.short_description || !fundraiser.description || !fundraiser.funding_goal || urls.$invalid" class="btn btn-block btn-success">Create Fundraiser</button>
         </div>
 
         <fundraiser-author fundraiser="fundraiser"></fundraiser-author>

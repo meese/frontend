@@ -2,7 +2,6 @@
 
 angular.module('app')
   .controller('TeamFundraiserController', function($scope, $location, $cart, $routeParams, $api) {
-
     // Change page content based on query param
     $scope._page = $location.search().page;
 
@@ -29,7 +28,6 @@ angular.module('app')
 
     $scope.$watch('activeFundraiser', function(fundraiser) {
       if (fundraiser === false) {
-
         $location.url('/teams/' + $routeParams.id);
 
       } else if (fundraiser) {
