@@ -19,7 +19,16 @@ angular.module('fundraisers').controller('FundraiserEditController', function($s
   });
 
   $scope.unsaved_changes = function() {
-    return !angular.equals($scope.master, $scope.changes);
+    // temporarily add master.image_url back to changes for comparison purposes
+    var test_master = angular.copy($scope.master);
+    var test_changes = angular.copy($scope.changes);
+
+    // no new image_url added, its safe to use the version from master
+    if (!test_changes.image_url) {
+      test_changes.image_url = test_master.image_url;
+    }
+
+    return !angular.equals(test_master, test_changes);
   };
 
   $scope.$watch("current_person", function (current_person) {

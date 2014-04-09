@@ -35,17 +35,15 @@ angular.module('fundraisers').controller('FundraiserCreateController', function(
     $location.path("/teams/new").search({creating_fundraiser: true});
   };
 
-  $scope.team_promise.then(function (team) {
-    $scope.create = function() {
-      var payload = angular.copy($scope.fundraiser);
-      payload.team_id = team.id;
-      $api.fundraiser_create(payload, function(response) {
-        if (response.meta.success) {
-          $location.url("/teams/"+response.data.team.slug+"/fundraisers/"+response.data.slug+"/edit");
-        } else {
-          $scope.error = response.data.error;
-        }
-      });
-    };
-  });
+  $scope.create = function() {
+    var payload = angular.copy($scope.fundraiser);
+    payload.team_id = team.id;
+    $api.fundraiser_create(payload, function(response) {
+      if (response.meta.success) {
+        $location.url("/teams/"+response.data.team.slug+"/fundraisers/"+response.data.slug);
+      } else {
+        $scope.error = response.data.error;
+      }
+    });
+  };
 });

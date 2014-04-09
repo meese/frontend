@@ -23,7 +23,7 @@
         </div>
 
         <div class="well well-lg">
-          <button ng-click="save()" class="btn btn-primary btn-block btn-lg">Save</button>
+          <button ng-click="save()" ng-disabled="!unsaved_changes()" class="btn btn-primary btn-block btn-lg">Save</button>
           <button ng-click="cancel()" class="btn btn-block btn-default btn-lg">Cancel</button>
         </div>
 
@@ -37,7 +37,7 @@
                   <!--Reward amount-->
                   <div class="input-group" style="margin-bottom:0">
                     <span class="input-group-addon">$</span>
-                    <input type="number" ng-model="reward.amount" min="5" required="" placeholder="Minimum Pledge Amount" ng-disabled="fundraiser.published" class="form-control">
+                    <input type="number" ng-model="reward.amount" min="5" required="" placeholder="Price" ng-disabled="fundraiser.published" class="form-control">
                   </div>
 
                   <!--Reward quantity-->
@@ -91,7 +91,7 @@
                 <!--Reward amount-->
                 <div class="input-group" style="margin-bottom:0">
                   <span class="input-group-addon">$</span>
-                  <input type="number" name="amount" ng-model="new_reward.amount" min="5" required="" placeholder="Minimum Pledge Amount" class="form-control">
+                  <input type="number" name="amount" ng-model="new_reward.amount" min="5" required="" placeholder="Price" class="form-control">
                 </div>
 
                 <!--Reward quantity-->
