@@ -1,0 +1,48 @@
+<div>
+  <ol class="breadcrumb">
+    <li><a href="/cash_outs">Cash Outs</a></li>
+  </ol>
+
+  <h1>Cash Outs</h1>
+
+  <div class="row">
+    <div class="col-sm-9">
+      <!-- Render message if person has no cash outs -->
+      <div ng-if="!cashOuts">
+        <p><em>You have no pending cash outs.</em></p>
+      </div>
+
+      <table class="table table-striped" ng-if="cashOuts">
+        <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Submitted</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr ng-repeat="cashOut in cashOuts">
+          <td><strong>{{cashOut.amount | currency}}</strong> via <strong>{{cashOut.type}}</strong></td>
+          <td>{{cashOut.created_at | date}}</td>
+          <td>
+            <!-- Pending -->
+            <div ng-if="!cashOut.sent_at">
+              <strong class="text-info">Pending</strong>
+            </div>
+
+            <!-- Accepted -->
+            <div ng-if="cashOut.sent_at">
+              <strong class="text-success">Sent {{cashOut.sent_at | date}}</strong>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-sm-3">
+      <a class="btn btn-primary" href="/cash_outs/new">Request Cash Out</a>
+    </div>
+  </div>
+</div>

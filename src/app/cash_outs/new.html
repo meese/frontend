@@ -1,0 +1,95 @@
+<div>
+  <ol class="breadcrumb">
+    <li><a href="/cash_outs">Cash Outs</a></li>
+    <li><a href="/cash_outs/new">New</a></li>
+  </ol>
+
+  <ng-form class="form-horizontal" name="cashOutForm">
+
+    <!-- Alert, error messages -->
+    <div ng-show="alert.message">
+      <alert type="alert.type" close="alert.message = undefined">{{alert.message}}</alert>
+    </div>
+
+    <!-- Amount -->
+    <div class="form-group">
+      <label for="amount" class="col-sm-2 control-label">Amount:</label>
+      <div class="col-md-2 col-sm-3">
+        <div class="input-group">
+          <span class="input-group-addon">$</span>
+          <input id="amount" type="number" ng-model="cashOut.amount" min="0" max="{{current_person.account.balance}}" step="0.01" class="form-control" placeholder="Amount" required />
+        </div>
+      </div>
+    </div>
+
+    <!-- Payout Method -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Payout Method:</label>
+      <div class="col-sm-10">
+        <!-- Paypal -->
+        <div class="radio">
+          <label>
+            <input type="radio" ng-model="cashOut.type" ng-value="'paypal'" required /> PayPal
+          </label>
+        </div>
+
+        <!-- Bitcoin -->
+        <div class="radio">
+          <label>
+            <input type="radio" ng-model="cashOut.type" ng-value="'bitcoin'" required /> Bitcoin
+          </label>
+        </div>
+
+        <!-- Check -->
+        <div class="radio">
+          <label>
+            <input type="radio" ng-model="cashOut.type" ng-value="'check'" required /> Check
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Extra info needed based on checkout method selected. Paypal/bitcoin address, or mailing address -->
+    <div ng-switch on="cashOut.type" collapse="!cashOut.type">
+      <!-- Paypal. Need paypal email address -->
+      <div class="form-group" ng-switch-when="paypal">
+        <label class="col-sm-2 control-label">PayPal Address:</label>
+        <div class="col-sm-4">
+          <input type="email" class="form-control" ng-model="$parent.cashOut.paypal_address" placeholder="PayPal Address" required />
+        </div>
+      </div>
+
+      <!-- Bitcoin -->
+      <div class="form-group" ng-switch-when="bitcoin">
+        <label class="col-sm-2 control-label">Bitcoin Address:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" ng-model="$parent.cashOut.bitcoin_address" placeholder="Bitcoin Address" required />
+        </div>
+      </div>
+
+      <!-- Check -->
+      <div class="form-group" ng-switch-when="check">
+        <label class="col-sm-2 control-label">Mailing Address:</label>
+
+        <div class="col-sm-10">
+          <address-select model="$parent.cashOut.mailing_address" required></address-select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Address -->
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Address</label>
+      <div class="col-sm-5">
+        <address-select model="cashOut.address" required></address-select>
+      </div>
+    </div>
+
+    <!-- Submit buttons -->
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-primary" ng-disabled="cashOutForm.$invalid" ng-click="createCashOut()">Submit</button>
+      </div>
+    </div>
+  </ng-form>
+</div>
