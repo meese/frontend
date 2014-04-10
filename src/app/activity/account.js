@@ -70,7 +70,7 @@ angular.module('app')
 
       $api.v2.createCashOut(payload).then(function(response) {
         if (response.success) {
-          $location.url('/cash_outs');
+          $location.url('/activity/cash_outs');
         } else {
           $scope.alert = {
             type: 'danger',

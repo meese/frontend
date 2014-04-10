@@ -8,7 +8,8 @@ angular.module('app').controller('ActivityTabs', function($scope, $location) {
     { name: 'Pledges', url: '/activity/pledges' },
     { name: 'Bounty Claims', url: '/activity/claims' },
     { name: 'Account', url: '/activity/account' },
-    { name: 'Transactions', url: '/activity/transactions' }
+    { name: 'Transactions', url: '/activity/transactions' },
+    { name: 'Cash Outs', url: '/activity/cash_outs' }
   ];
   $scope.is_active = function(url) {
     return url === $location.path();
