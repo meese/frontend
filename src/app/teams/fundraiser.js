@@ -17,7 +17,7 @@ angular.module('app')
     });
 
     // Watching a string didn't work here. Watch the route params and update pledge fields accordingly
-    $scope.$watch(function () {return $location.search()}, function (newParams) {
+    $scope.$watch(function () {return $location.search();}, function (newParams) {
       $scope.pledge = {
         amount: parseInt(newParams.amount, 10) || angular.noop,
         anonymous: (parseInt(newParams.anonymous, 10) === 1) || false,

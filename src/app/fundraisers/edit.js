@@ -7,7 +7,7 @@ angular.module('fundraisers').controller('FundraiserEditController', function($s
   $scope.rewards = [];
   $scope.master_rewards = [];
 
- $scope.fundraiserPromise = $api.fundraiser_get($routeParams.fundraiser_id).then(function(fundraiser) {
+  $scope.fundraiserPromise = $api.fundraiser_get($routeParams.fundraiser_id).then(function(fundraiser) {
 
     $scope.fundraiser = angular.copy(fundraiser);
 
@@ -36,7 +36,7 @@ angular.module('fundraisers').controller('FundraiserEditController', function($s
       $scope.teams = teams;
       return teams;
     });
-  })
+  });
 
   $scope.fundraiserPromise.then(function(fundraiser) {
     // cache the fundraisers. angular.copy does a deep copy, FYI

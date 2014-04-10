@@ -113,7 +113,7 @@ angular.module('directives').directive('teamView', function($rootScope, $locatio
           } else {
             draft_fundraisers.push(fundraisers[i]);
           }
-        };
+        }
 
         // return active fundraiser if one exists. There should only ever be one active fundraiser
         if (active_fundraisers.length > 0) {
@@ -124,7 +124,7 @@ angular.module('directives').directive('teamView', function($rootScope, $locatio
         } else {
           return false;
         }
-      };
+      }
 
       /*****************************
        * Pledge Buttons
