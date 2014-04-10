@@ -59,6 +59,7 @@ angular.module('app').config(function ($routeProvider, defaultRouteOptions, pers
   $routeProvider.when('/activity/account', angular.extend({
     templateUrl: 'app/activity/account.html',
     resolve: { person: personResolver },
+    controller: 'AccountActivityController',
     trackEvent: 'View My Account'
   }, defaultRouteOptions));
 

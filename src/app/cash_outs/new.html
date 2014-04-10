@@ -5,9 +5,8 @@
   </ol>
 
   <ng-form class="form-horizontal" name="cashOutForm">
-
     <!-- Alert, error messages -->
-    <div ng-show="alert.message">
+    <div ng-if="alert.message">
       <alert type="alert.type" close="alert.message = undefined">{{alert.message}}</alert>
     </div>
 
