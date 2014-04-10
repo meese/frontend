@@ -32,10 +32,12 @@ angular.module('fundraisers').controller('FundraiserEditController', function($s
   };
 
   $scope.$watch("current_person", function (current_person) {
-    $api.person_teams(current_person.id).then(function(teams) {
-      $scope.teams = teams;
-      return teams;
-    });
+    if(current_person) {
+      $api.person_teams(current_person.id).then(function(teams) {
+        $scope.teams = teams;
+        return teams;
+      });
+    }
   });
 
   $scope.fundraiserPromise.then(function(fundraiser) {

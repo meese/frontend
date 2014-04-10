@@ -66,17 +66,17 @@
                       Save
                     </button>
                   </div>
-                  <div class="col-sm-3 col-md-3">
+                  <div class="col-sm-6 col-md-6">
                     <!--Add that bad boy!-->
                     <button ng-click="cancel_reward_changes(reward)" class="btn btn-block btn-default" tooltip="Cancel" tooltip-placement="top" tooltip-trigger="mouseenter">
                       <i class="glyphicon glyphicon-remove"></i>
                     </button>
                   </div>
-                  <div class="col-sm-3 col-md-3">
+                  <div class="col-xs-12">
                     <!--Destroy button-->
-                    <button ng-disabled="fundraiser.published" ng-click="destroy_reward(reward)" class="btn btn-block btn-default" tooltip="Delete" tooltip-placement="top" tooltip-trigger="mouseenter">
-                      <i class="glyphicon glyphicon-trash"></i>
-                    </button>
+                    <a ng-disabled="fundraiser.published" ng-click="destroy_reward(reward)" class="btn btn-block btn-default btn-link">
+                      Delete Reward
+                    </a>
                   </div>
                 </div>
               </accordion-group>
