@@ -7,6 +7,11 @@ angular.module('fundraisers').controller('FundraiserEditController', function($s
   $scope.rewards = [];
   $scope.master_rewards = [];
 
+  // Enable/disable rewards edit view
+  if ($routeParams.rewards_edit) {
+    $scope.rewards_edit = true;
+  }
+
   $scope.fundraiserPromise = $api.fundraiser_get($routeParams.fundraiser_id).then(function(fundraiser) {
 
     $scope.fundraiser = angular.copy(fundraiser);

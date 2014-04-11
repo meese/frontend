@@ -46,7 +46,7 @@ angular.module('fundraisers').controller('FundraiserCreateController', function(
           payload.team_id = team.id;
           $api.fundraiser_create(payload, function(response) {
             if (response.meta.success) {
-              $location.url("/teams/"+response.data.team.slug+"/fundraisers/"+response.data.slug);
+              $location.url("/teams/"+response.data.team.slug+"/fundraisers/"+response.data.slug+"/edit").search( { rewards_edit: true } );
             } else {
               $scope.error = response.data.error;
             }
