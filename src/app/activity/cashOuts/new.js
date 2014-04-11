@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('app')
-  .controller('AccountActivityController', function($scope, $api, $window, $location, $modal, countries, usStates) {
+angular.module('activity').
+  controller('NewCashOutController', function($scope, $api, $window, $location, countries, usStates) {
 
     $scope.countries = countries;
     $scope.usStates = usStates;
@@ -70,7 +70,7 @@ angular.module('app')
 
       $api.v2.createCashOut(payload).then(function(response) {
         if (response.success) {
-          $location.url('/activity/cash_outs');
+          $location.url('/activity/transactions/cash_outs');
         } else {
           $scope.alert = {
             type: 'danger',

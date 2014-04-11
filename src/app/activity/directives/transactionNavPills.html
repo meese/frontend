@@ -1,0 +1,5 @@
+<ul class="nav nav-pills nav-stacked">
+  <li ng-repeat="pill in pills" ng-class="{ active: pill.active() }">
+    <a ng-href="{{pill.href()}}">{{pill.name}}</a>
+  </li>
+</ul>
