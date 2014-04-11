@@ -7,7 +7,7 @@
 
   <div team-view team="team">
     <div class="alert alert-info text-center" ng-show="fundraiser.rewards.length == 0"><a ng-href="/teams/{{ team.slug }}/fundraisers/{{ fundraiser.slug }}/edit" class="alert-link">Create rewards for your fundraiser!</a></div>
-    <fundraiser-template fundraiser="fundraiser" options="{ showNavTabs: false, showLeftColumn: false, showTitle: false }">
+    <fundraiser-template fundraiser="fundraiser" options="{ showNavTabs: false, showLeftColumn: false, showTitle: true }">
       <div ng-show="fundraiser.updates.length > 0">
         <div class="panel panel-default">
           <div class="panel-heading">Updates</div>
