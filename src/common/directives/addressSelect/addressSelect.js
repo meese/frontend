@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('directives').directive('addressSelect', function($api, $modal) {
+angular.module('directives').directive('addressSelect', function($api, $window, $modal) {
 
   return {
     restrict: 'EAC',
@@ -81,7 +81,7 @@ angular.module('directives').directive('addressSelect', function($api, $modal) {
             };
 
             $scope.delete = function(index) {
-              if (confirm("Are you sure?")) {
+              if ($window.confirm("Are you sure?")) {
                 $api.v2.deleteAddress($scope.addresses[index].id).then(function() {
                   delete $scope.addresses[index]._changes;
                   $scope.addresses.splice(index,1);
@@ -99,10 +99,10 @@ angular.module('directives').directive('addressSelect', function($api, $modal) {
                   $scope.addresses[index] = angular.copy(response.data);
                 });
               }
-            }
+            };
           }
         });
-      }
+      };
 
     }
   };
