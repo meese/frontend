@@ -24,7 +24,7 @@
           <th>Amount</th>
           <th>Submitted</th>
           <th>Status</th>
-          <th colspan="2"></th>
+          <th>Payment Method</th>
         </tr>
         </thead>
 
@@ -47,21 +47,7 @@
           </td>
 
           <!-- Payment Method -->
-          <td>{{cashOut.type}}</td>
-          <td ng-switch on="cashOut.type">
-
-            <!-- Paypal address -->
-            <div ng-switch-when="paypal">{{cashOut.paypal_address}}</div>
-
-            <!-- Bitcoin wallet address -->
-            <div ng-switch-when="bitcoin">{{cashOut.bitcoin_address}}</div>
-
-            <!-- Mailing address -->
-            <div ng-switch-when="check">
-              <div formatted-address address="cashOut.mailing_address"></div>
-            </div>
-
-          </td>
+          <td>{{cashOut.type | title}}</td>
         </tr>
         </tbody>
       </table>

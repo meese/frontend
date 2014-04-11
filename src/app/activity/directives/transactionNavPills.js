@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('activity').directive('transactionNavPills', function($rootScope, NavElement) {
+angular.module('activity').directive('transactionNavPills', function($rootScope, $api, $q, NavElement) {
 
   return {
     restrict: 'EAC',
@@ -8,16 +8,23 @@ angular.module('activity').directive('transactionNavPills', function($rootScope,
     scope: true,
     link: function(scope) {
 
-      scope.pills = [
-        new NavElement('Orders', '/activity/transactions'),
-        new NavElement('Cash Outs', '/activity/transactions/cash_outs')
-      ];
+      var currentPersonHasMoneyDeferred = $q.defer();
+      var currenPersonHasOrdersDeferred = $q.defer();
 
       $rootScope.$watch('current_person', function(person) {
-        if (person && person.account && person.account.balance > 0) {
-          scope.pills.push(new NavElement('Request Cash Out', '/activity/transactions/cash_outs/new'));
-        }
+        currentPersonHasMoneyDeferred.resolve(person && person.account && person.account.balance > 0);
       });
+
+      $api.transaction_activity().then(function(transactions) {
+        currenPersonHasOrdersDeferred.resolve(angular.isArray(transactions) && transactions.length > 0);
+      });
+
+      scope.pills = [
+        new NavElement('Overview',  '/activity/account'),
+        new NavElement('Orders', '/activity/transactions', currenPersonHasOrdersDeferred.promise),
+        new NavElement('Cash Outs', '/activity/cash_outs'),
+        new NavElement('Request Cash Out', '/activity/cash_outs/new', currentPersonHasMoneyDeferred.promise)
+      ];
 
     }
   };

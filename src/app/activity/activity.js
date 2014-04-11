@@ -38,6 +38,12 @@ angular.module('activity')
       trackEvent: 'View My Timeline'
     }, defaultRouteOptions));
 
+    $routeProvider.when('/activity/account', angular.extend({
+      templateUrl: 'app/activity/account.html',
+      resolve: { person: personResolver },
+      trackEvent: 'View My Account'
+    }, defaultRouteOptions));
+
     $routeProvider.when('/activity/transactions', angular.extend({
       templateUrl: 'app/activity/transactions.html',
       controller: 'TransactionsController',
@@ -45,41 +51,18 @@ angular.module('activity')
       trackEvent: 'View My Transactions'
     }, defaultRouteOptions));
 
-    $routeProvider.when('/activity/transactions/cash_outs', angular.extend({
+    $routeProvider.when('/activity/cash_outs', angular.extend({
       templateUrl: 'app/activity/cashOuts/index.html',
       controller: 'CashOutsController',
       resolve: { person: personResolver },
       trackEvent: 'View My Cash Outs'
     }, defaultRouteOptions));
 
-    $routeProvider.when('/activity/transactions/cash_outs/new', angular.extend({
+    $routeProvider.when('/activity/cash_outs/new', angular.extend({
       templateUrl: 'app/activity/cashOuts/new.html',
       controller: 'NewCashOutController',
       resolve: { person: personResolver },
       trackEvent: 'View Request Cash Out'
     }, defaultRouteOptions));
-
-
-  }).
-
-  factory('NavElement', function($location) {
-
-    return function(name, urls) {
-      this.name = name;
-      this.urls = angular.isArray(urls) ? urls : [urls];
-
-      this.active = function() {
-        for (var i=0; i<this.urls.length; i++) {
-          if (this.urls[i] === $location.path()) {
-            return true;
-          }
-        }
-        return false;
-      };
-
-      this.href = function() {
-        return this.urls[0];
-      };
-    };
 
   });

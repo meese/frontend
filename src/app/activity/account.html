@@ -1,0 +1,21 @@
+<div>
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/activity">Activity</a></li>
+    <li><a href="/activity/account">Account</a></li>
+  </ul>
+
+  <ul class="nav nav-tabs">
+    <li ng-repeat="tab in tabs" nav-tab></li>
+  </ul>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div transaction-nav-pills></div>
+    </div>
+
+    <div class="col-sm-9">
+      <div>Account balance: <strong>{{current_person.account.balance | currency}}</strong></div>
+    </div>
+  </div>
+</div>
