@@ -93,6 +93,23 @@
           </div>
         </div>
 
+        <!-- If address US, ask if person is US citizen -->
+        <div class="form-group" ng-if="cashOut.address && cashOut.address.country !== 'US'">
+          <div class="col-sm-offset-2 col-sm-10">
+            <p>Are you a United States citizen?</p>
+            <div class="radio">
+              <label>
+                <input type="radio" ng-model="cashOut.us_citizen" ng-value="true" required /> Yes
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" ng-model="cashOut.us_citizen" ng-value="false" required /> No
+              </label>
+            </div>
+          </div>
+        </div>
+
         <!-- Submit buttons -->
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">

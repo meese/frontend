@@ -12,7 +12,8 @@ angular.module('activity').
       address: undefined,
       paypal_address: undefined,
       bitcoin_address: undefined,
-      mailing_address: undefined
+      mailing_address: undefined,
+      us_citizen: undefined
     };
 
     // Set default to amount to current account balance
@@ -65,12 +66,13 @@ angular.module('activity').
         address_id: $scope.cashOut.address && $scope.cashOut.address.id,
         mailing_address_id: $scope.cashOut.mailing_address && $scope.cashOut.mailing_address.id,
         paypal_address: $scope.cashOut.paypal_address,
-        bitcoin_address: $scope.cashOut.bitcoin_address
+        bitcoin_address: $scope.cashOut.bitcoin_address,
+        us_citizen: $scope.cashOut.us_citizen
       };
 
       $api.v2.createCashOut(payload).then(function(response) {
         if (response.success) {
-          $location.url('/activity/transactions/cash_outs');
+          $location.url('/activity/cash_outs');
         } else {
           $scope.alert = {
             type: 'danger',
