@@ -1,40 +1,5 @@
-<div>
-  <!-- If no addresses created yet, show "Create Address" button -->
-  <div ng-if="addresses.length <= 0">
-    <button class="btn btn-default" ng-click="newAddress()">Add An Address</button>
-  </div>
-
-  <!-- Select + new button + manage button -->
-  <ul class="list-inline" ng-if="addresses.length > 0">
-    <li ng-if="!_required">
-      <select
-        class="form-control"
-        ng-model="model"
-        ng-options="address as [address.address1, address.city].join(', ') for address in addresses"
-        >
-      </select>
-    </li>
-
-    <!-- If required, use element with the required attribute -->
-    <li ng-if="_required">
-      <select
-        class="form-control"
-        ng-model="model"
-        ng-options="address as [address.address1, address.city].join(', ') for address in addresses"
-        required
-        >
-      </select>
-    </li>
-
-    <li>
-      <button class="btn btn-default" tooltip="New Address" tooltip-placement="bottom" ng-click="newAddress()">
-        <i class="glyphicon glyphicon-plus"></i>
-      </button>
-    </li>
-    <li>
-      <button class="btn btn-default" tooltip="Manage Addresses" tooltip-placement="bottom" ng-click="manageAddresses()">
-        <i class="glyphicon glyphicon-cog"></i>
-      </button>
-    </li>
-  </ul>
-</div>
+<select
+  ng-options="address.id as [address.address1, address.city, address.state].join(', ') for address in addressManagerInstance.addresses"
+  >
+  <option value="" disabled>Select an address</option>
+</select>

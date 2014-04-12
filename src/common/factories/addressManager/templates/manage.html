@@ -1,22 +1,17 @@
 <div>
-  <div class="modal-header">Manage Address</div>
+  <div class="modal-header">Manage addresses</div>
 
   <div class="modal-body" ng-if="addresses.length <= 0">
-    <i>You don't have any addresses.</i>
+    <em>You don't have any addresses.</em>
   </div>
 
-  <table class="table table-striped table-no-border-top">
+  <table class="table table-striped table-no-border-top" style="margin-bottom: 0;">
     <tr ng-repeat="address in addresses">
       <td ng-if="!address._changes">
-        <p>{{address.name}}</p>
-        <p>{{address.address1}}</p>
-        <p>{{address.address2}}</p>
-        <p>{{address.address3}}</p>
-        <p>{{address.city}}, {{address.state}} {{address.postal_code}}</p>
-
+        <div formatted-address address="address"></div>
         <div>
-          <button class="btn btn-sm btn-default" ng-click="enableEdit($index)"><i class="glyphicon glyphicon-edit"></i> Edit</button>
-          <button class="btn btn-sm btn-danger" ng-click="delete($index)"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+          <button class="btn btn-sm btn-link" ng-click="enableEdit($index)"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+          <button class="btn btn-sm btn-link" ng-click="delete($index)"><i class="glyphicon glyphicon-trash"></i> Delete</button>
         </div>
       </td>
 

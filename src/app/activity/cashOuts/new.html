@@ -57,9 +57,9 @@
           </div>
         </div>
 
-        <!-- Extra info needed based on checkout method selected. Paypal/bitcoin address, or mailing address -->
+        <!-- Extra info needed based on checkout method selected. Paypal/bitcoin addressManager, or mailing addressManager -->
         <div ng-switch on="cashOut.type" collapse="!cashOut.type">
-          <!-- Paypal. Need paypal email address -->
+          <!-- Paypal. Need paypal email addressManager -->
           <div class="form-group" ng-switch-when="paypal">
             <label class="col-sm-2 control-label">PayPal Address:</label>
             <div class="col-sm-4">
@@ -79,21 +79,37 @@
           <div class="form-group" ng-switch-when="check">
             <label class="col-sm-2 control-label">Mailing Address:</label>
 
-            <div class="col-sm-10">
-              <address-select model="$parent.cashOut.mailing_address" required></address-select>
+            <div class="col-sm-5">
+              <address-select
+                class="form-control"
+                address-manager-instance="addressManager"
+                ng-model="cashOut.mailing_address_id"
+                required
+                >
+              </address-select>
             </div>
           </div>
         </div>
 
-        <!-- Address -->
+        <!-- Physical Address -->
         <div class="form-group">
           <label class="col-sm-2 control-label">Address</label>
-          <div class="col-sm-10">
-            <address-select model="cashOut.address" required></address-select>
+
+          <div class="col-sm-5">
+            <address-select
+              class="form-control"
+              address-manager-instance="addressManager"
+              ng-model="cashOut.address_id"
+              required
+              >
+            </address-select>
           </div>
+
+          <button class="btn btn-link" ng-click="addressManager.openCreateModal()"><i class="glyphicon glyphicon-new-window"></i> New</button>
+          <button class="btn btn-link" ng-click="addressManager.openManageModal()"><i class="glyphicon glyphicon-edit"></i> Manage</button>
         </div>
 
-        <!-- If address US, ask if person is US citizen -->
+        <!-- If addressManager US, ask if person is US citizen -->
         <div class="form-group" ng-if="cashOut.address && cashOut.address.country !== 'US'">
           <div class="col-sm-offset-2 col-sm-10">
             <p>Are you a United States citizen?</p>
@@ -113,7 +129,14 @@
         <!-- Submit buttons -->
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-primary" ng-disabled="cashOutForm.$invalid" ng-click="createCashOut()">Submit</button>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-ng-disabled="cashOutForm.$invalid"
+              data-ng-click="createCashOut()"
+              >
+              Submit
+            </button>
           </div>
         </div>
       </ng-form>

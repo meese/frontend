@@ -6,7 +6,7 @@
       <!-- Name -->
       <div class="form-group">
         <label for="newAddressFullName" class="col-sm-2 control-label">Full Name</label>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
           <input id="newAddressFullName" type="text" ng-model="address.name" class="form-control" placeholder="Full Name" required />
         </div>
       </div>
@@ -54,7 +54,7 @@
       </div>
 
       <!-- Country -->
-      <div class="form-group">
+      <div class="form-group" style="margin-bottom: 0;">
         <label for="newAddressCountry" class="col-sm-2 control-label">Country</label>
         <div class="col-sm-8">
           <select
@@ -70,7 +70,7 @@
     </form>
   </div>
 
-  <div class="modal-footer">
+  <div class="modal-footer" style="margin-top: 0;">
     <button class="btn btn-default" ng-click="close()">Cancel</button>
     <button class="btn btn-primary" ng-click="createAddress(address)" ng-disabled="form.$invalid">Save</button>
   </div>
