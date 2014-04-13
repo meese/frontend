@@ -4,7 +4,7 @@
   <li><a href="/activity/solutions">Bounty Claims</a></li>
 </ul>
 
-<div activity-nav-tabs></div>
+<ng-include src="'app/activity/templates/navTabs.html'"></ng-include>
 
 <div class="alert alert-info" ng-show="bounty_claims.length <= 0">
   You have not claimed any bounties. <a href="/search">Find an issue that you have resolved to claim the bounty!</a>

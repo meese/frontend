@@ -5,11 +5,11 @@
     <li><a href="/activity/transactions">Transactions</a></li>
   </ul>
 
-  <div activity-nav-tabs></div>
+  <ng-include src="'app/activity/templates/navTabs.html'"></ng-include>
 
   <div class="row">
     <div class="col-sm-3">
-      <div transaction-nav-pills></div>
+      <ng-include src="'app/activity/templates/transactionNavPills.html'"></ng-include>
     </div>
 
     <div class="col-sm-9">
