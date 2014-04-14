@@ -7,7 +7,7 @@ angular.module('activity').
     $scope.usStates = usStates;
 
     $scope.cashOut = {
-      type: 'check', // undefined,
+      type: undefined,
       amount: undefined,
       paypal_address: undefined,
       bitcoin_address: undefined,
@@ -35,7 +35,6 @@ angular.module('activity').
       if (angular.isUndefined($scope.cashOut.address_id)) {
         $scope.cashOut.address_id = address.id;
       }
-
       if (angular.isUndefined($scope.cashOut.address_id)) {
         $scope.cashOut.mailing_address_id = address.id;
       }
@@ -60,6 +59,14 @@ angular.module('activity').
     });
 
     $scope.createCashOut = function() {
+
+      var payload = angular.copy($scope.cashOut);
+
+      // Do not post the US citizen response when not necessary
+      if (payload.address.country === 'US') {
+        delete payload.us_citizen
+      }
+
       $api.v2.createCashOut($scope.cashOut).then(function(response) {
         if (response.success) {
           $location.url('/activity/cash_outs');
