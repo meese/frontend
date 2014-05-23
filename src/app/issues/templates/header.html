@@ -24,8 +24,26 @@
       </div>
     </div>
   </div>
+
   <div class="visible-sm">
     <h4 style="margin-top: 0;">{{ issue.title || 'Loading...' }} <issue-status-label issue="issue"></issue-status-label></h4>
   </div>
-  <br>
+
+  <br />
+
+  <!-- Team has submit a request for proposal,
+       This kills the developer goals and start work shit. -->
+  <div ng-show="requestForProposal">
+    <ng-include src="'app/issues/templates/rfp_open_banner.html'"></ng-include>
+  </div>
+
+  <!-- There is no request for proposal.
+       Business as usual. -->
+  <div ng-show="!requestForProposal">
+    <!-- Start work box-->
+    <div ng-include="'app/issues/templates/start_work_box.html'"></div>
+
+    <!-- Developer goals notification box -->
+    <div ng-include="'app/issues/templates/developer_goals_notification.html'"></div>
+  </div>
 </div>

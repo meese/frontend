@@ -1,0 +1,18 @@
+<div class="well">
+  <div class="row">
+    <div class="col-md-1">
+      <a ng-href="/teams/{{requestForProposal.team.slug}}">
+        <img class="img-responsive" ng-src="{{requestForProposal.team.image_url_medium}}" />
+      </a>
+    </div>
+    <div class="col-md-8">
+      <p>
+        <a ng-href="/teams/{{requestForProposal.team.slug}}">{{requestForProposal.team.name}}</a>
+        is hiring a developer to close this issue.
+      </p>
+    </div>
+    <div class="col-md-3">
+      <a ng-href="/issues/{{issue.slug}}/rfp" class="btn btn-success pull-right">Submit a Proposal!</a>
+    </div>
+  </div>
+</div>
